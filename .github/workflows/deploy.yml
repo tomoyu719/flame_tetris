@@ -1,0 +1,48 @@
+# GitHub Pages へのデプロイワークフロー
+# Flutter Web アプリを自動的にビルドしてデプロイします
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  # 手動実行も可能に
+  workflow_dispatch:
+
+# GitHub Token の権限設定
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Flutter環境をセットアップ
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: 'stable'
+          cache: true
+
+      # 依存関係を取得
+      - name: Get dependencies
+        run: flutter pub get
+
+      # テストを実行（オプション：失敗してもデプロイは継続）
+      - name: Run tests
+        run: |
+          cd packages/domain && flutter test
+          cd ../application && flutter test
+          cd ../infrastructure && flutter test
+        continue-on-error: true
+
+      # GitHub Pagesにデプロイ
+      - name: Deploy to GitHub Pages
+        uses: bluefireteam/flutter-gh-pages@v9
+        with:
+          baseHref: /flame_tetris/
