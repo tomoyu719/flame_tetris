@@ -146,7 +146,10 @@ void main() {
         final clearedBoard = board.clearLines([19]);
 
         // 18行目のブロックが19行目に落ちている
-        expect(clearedBoard.getCell(const Position(3, 19)), equals(TetrominoType.j));
+        expect(
+          clearedBoard.getCell(const Position(3, 19)),
+          equals(TetrominoType.j),
+        );
         // 18行目は空になっている
         expect(clearedBoard.getCell(const Position(3, 18)), isNull);
       });
@@ -164,7 +167,10 @@ void main() {
         final clearedBoard = board.clearLines([18, 19]);
 
         // 17行目のブロックが19行目に落ちている（2行分）
-        expect(clearedBoard.getCell(const Position(5, 19)), equals(TetrominoType.l));
+        expect(
+          clearedBoard.getCell(const Position(5, 19)),
+          equals(TetrominoType.l),
+        );
         expect(clearedBoard.getCell(const Position(5, 17)), isNull);
         expect(clearedBoard.getCell(const Position(5, 18)), isNull);
       });

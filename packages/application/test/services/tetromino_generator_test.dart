@@ -80,10 +80,9 @@ void main() {
       });
 
       test('peekは状態を変更しない', () {
-        final generator = TetrominoGenerator(random: Random(42));
-
-        generator.peek();
-        generator.peek();
+        final generator = TetrominoGenerator(random: Random(42))
+          ..peek()
+          ..peek();
         final next1 = generator.next();
 
         final generator2 = TetrominoGenerator(random: Random(42));
@@ -116,10 +115,9 @@ void main() {
       });
 
       test('peekMultipleは状態を変更しない', () {
-        final generator = TetrominoGenerator(random: Random(42));
-
-        generator.peekMultiple(5);
-        generator.peekMultiple(3);
+        final generator = TetrominoGenerator(random: Random(42))
+          ..peekMultiple(5)
+          ..peekMultiple(3);
 
         final generator2 = TetrominoGenerator(random: Random(42));
 

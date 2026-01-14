@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
 void main() {
@@ -83,7 +83,7 @@ void main() {
           score: 1000,
           level: 3,
           linesCleared: 10,
-          achievedAt: DateTime(2026, 1, 1),
+          achievedAt: DateTime(2026),
         );
 
         final copied = original.copyWith(score: 2000);
@@ -91,7 +91,7 @@ void main() {
         expect(copied.score, equals(2000));
         expect(copied.level, equals(3));
         expect(copied.linesCleared, equals(10));
-        expect(copied.achievedAt, equals(DateTime(2026, 1, 1)));
+        expect(copied.achievedAt, equals(DateTime(2026)));
       });
 
       test('すべてのフィールドを変更できる', () {
@@ -99,7 +99,7 @@ void main() {
           score: 1000,
           level: 3,
           linesCleared: 10,
-          achievedAt: DateTime(2026, 1, 1),
+          achievedAt: DateTime(2026),
         );
         final newDate = DateTime(2026, 6, 15);
 
@@ -136,7 +136,7 @@ void main() {
       });
 
       test('同じ値のHighScoreは等しい', () {
-        final date = DateTime(2026, 1, 1, 12, 0, 0);
+        final date = DateTime(2026, 1, 1, 12);
         final a = HighScore(
           score: 1000,
           level: 5,
@@ -155,7 +155,7 @@ void main() {
       });
 
       test('異なる値のHighScoreは等しくない', () {
-        final date = DateTime(2026, 1, 1, 12, 0, 0);
+        final date = DateTime(2026, 1, 1, 12);
         final a = HighScore(
           score: 1000,
           level: 5,
@@ -213,7 +213,7 @@ void main() {
 
     group('toJson / fromJson', () {
       test('JSON形式にシリアライズできる', () {
-        final date = DateTime(2026, 1, 15, 10, 30, 0);
+        final date = DateTime(2026, 1, 15, 10, 30);
         final highScore = HighScore(
           score: 10000,
           level: 8,
@@ -242,7 +242,7 @@ void main() {
         expect(highScore.score, equals(10000));
         expect(highScore.level, equals(8));
         expect(highScore.linesCleared, equals(45));
-        expect(highScore.achievedAt, equals(DateTime(2026, 1, 15, 10, 30, 0)));
+        expect(highScore.achievedAt, equals(DateTime(2026, 1, 15, 10, 30)));
       });
 
       test('シリアライズ→デシリアライズで同じ値になる', () {

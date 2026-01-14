@@ -1,6 +1,5 @@
+import 'package:tetris_application/src/usecases/usecase_result.dart';
 import 'package:tetris_domain/tetris_domain.dart';
-
-import 'usecase_result.dart';
 
 /// ゲームの一時停止/再開を行うユースケース
 class PauseGameUseCase {

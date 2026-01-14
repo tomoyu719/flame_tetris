@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../l10n/tetris_l10n.dart';
-import '../router/app_router.dart';
+import 'package:tetris_presentation/src/l10n/tetris_l10n.dart';
+import 'package:tetris_presentation/src/router/app_router.dart';
 
 /// 一時停止オーバーレイ
 ///
@@ -22,7 +22,7 @@ class PauseOverlay extends StatelessWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
 
-    return Container(
+    return ColoredBox(
       color: Colors.black.withValues(alpha: 0.7),
       child: Center(
         child: Container(

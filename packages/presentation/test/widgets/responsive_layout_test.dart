@@ -203,14 +203,16 @@ void main() {
       expect(value.resolve(DeviceType.desktop), 2);
     });
 
-    test('resolve falls back to mobile when both tablet and desktop are null',
-        () {
-      const value = ResponsiveValue<int>(
-        mobile: 1,
-      );
+    test(
+      'resolve falls back to mobile when both tablet and desktop are null',
+      () {
+        const value = ResponsiveValue<int>(
+          mobile: 1,
+        );
 
-      expect(value.resolve(DeviceType.desktop), 1);
-    });
+        expect(value.resolve(DeviceType.desktop), 1);
+      },
+    );
   });
 
   group('Breakpoints', () {

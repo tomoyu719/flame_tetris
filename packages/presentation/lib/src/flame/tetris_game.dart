@@ -1,6 +1,5 @@
 import 'dart:async' as async;
 
-import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:tetris_application/tetris_application.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import 'components/board_component.dart';
+import 'package:tetris_presentation/src/flame/components/board_component.dart';
 
 /// テトリスゲームのメインクラス
 ///

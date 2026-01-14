@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import '../l10n/tetris_l10n.dart';
-import '../providers/settings_provider.dart';
-import '../router/app_router.dart';
-import '../widgets/responsive_layout.dart';
-import '../widgets/toggle_setting.dart';
-import '../widgets/volume_slider.dart';
+import 'package:tetris_presentation/src/l10n/tetris_l10n.dart';
+import 'package:tetris_presentation/src/providers/settings_provider.dart';
+import 'package:tetris_presentation/src/router/app_router.dart';
+import 'package:tetris_presentation/src/widgets/responsive_layout.dart';
+import 'package:tetris_presentation/src/widgets/toggle_setting.dart';
+import 'package:tetris_presentation/src/widgets/volume_slider.dart';
 
 /// 設定画面
 ///
@@ -68,8 +70,9 @@ class SettingsScreen extends ConsumerWidget {
         ),
         data: (settings) => LayoutBuilder(
           builder: (context, constraints) {
-            final deviceType =
-                ResponsiveLayout.getDeviceType(constraints.maxWidth);
+            final deviceType = ResponsiveLayout.getDeviceType(
+              constraints.maxWidth,
+            );
             return _SettingsContent(
               settings: settings,
               l10n: l10n,
@@ -114,7 +117,11 @@ class _SettingsContent extends ConsumerWidget {
               label: l10n.settingsBgmVolume,
               value: settings.bgmVolume,
               onChanged: (value) {
-                ref.read(gameSettingsProvider.notifier).updateBgmVolume(value);
+                unawaited(
+                  ref
+                      .read(gameSettingsProvider.notifier)
+                      .updateBgmVolume(value),
+                );
               },
             ),
 
@@ -122,9 +129,11 @@ class _SettingsContent extends ConsumerWidget {
               label: l10n.settingsSeVolume,
               value: settings.soundEffectVolume,
               onChanged: (value) {
-                ref
-                    .read(gameSettingsProvider.notifier)
-                    .updateSoundEffectVolume(value);
+                unawaited(
+                  ref
+                      .read(gameSettingsProvider.notifier)
+                      .updateSoundEffectVolume(value),
+                );
               },
             ),
 
@@ -132,7 +141,11 @@ class _SettingsContent extends ConsumerWidget {
               label: l10n.settingsMuteAll,
               value: settings.isMuted,
               onChanged: (value) {
-                ref.read(gameSettingsProvider.notifier).updateIsMuted(value);
+                unawaited(
+                  ref
+                      .read(gameSettingsProvider.notifier)
+                      .updateIsMuted(muted: value),
+                );
               },
             ),
 
@@ -146,7 +159,11 @@ class _SettingsContent extends ConsumerWidget {
               label: l10n.settingsGhostPiece,
               value: settings.showGhost,
               onChanged: (value) {
-                ref.read(gameSettingsProvider.notifier).updateShowGhost(value);
+                unawaited(
+                  ref
+                      .read(gameSettingsProvider.notifier)
+                      .updateShowGhost(show: value),
+                );
               },
             ),
 
@@ -162,8 +179,8 @@ class _SettingsContent extends ConsumerWidget {
               child: Text(
                 l10n.settingsVersion,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: ResponsiveFontSize.caption(deviceType),
-                    ),
+                  fontSize: ResponsiveFontSize.caption(deviceType),
+                ),
               ),
             ),
           ],
@@ -250,39 +267,43 @@ class _SettingsContent extends ConsumerWidget {
 
   void _showResetConfirmDialog(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          l10n.dialogResetTitle,
-          style: theme.textTheme.titleLarge?.copyWith(fontSize: 12),
-        ),
-        content: Text(
-          l10n.dialogResetContent,
-          style: theme.textTheme.bodyMedium?.copyWith(fontSize: 10),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.dialogCancel),
+    unawaited(
+      showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            l10n.dialogResetTitle,
+            style: theme.textTheme.titleLarge?.copyWith(fontSize: 12),
           ),
-          TextButton(
-            onPressed: () {
-              ref.read(gameSettingsProvider.notifier).resetToDefaults();
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.snackbarSettingsReset),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: theme.colorScheme.error,
+          content: Text(
+            l10n.dialogResetContent,
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 10),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(l10n.dialogCancel),
             ),
-            child: Text(l10n.dialogReset),
-          ),
-        ],
+            TextButton(
+              onPressed: () {
+                unawaited(
+                  ref.read(gameSettingsProvider.notifier).resetToDefaults(),
+                );
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.snackbarSettingsReset),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: theme.colorScheme.error,
+              ),
+              child: Text(l10n.dialogReset),
+            ),
+          ],
+        ),
       ),
     );
   }

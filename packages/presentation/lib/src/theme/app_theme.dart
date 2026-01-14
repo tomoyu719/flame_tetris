@@ -17,23 +17,43 @@ enum TetrisThemeMode {
 class TetrisColors {
   const TetrisColors._();
 
-  // プライマリカラー
+  /// シアン（Iミノ）
   static const Color cyan = Color(0xFF00BCD4);
+
+  /// パープル（Tミノ）
   static const Color purple = Color(0xFF9C27B0);
+
+  /// オレンジ（Lミノ）
   static const Color orange = Color(0xFFFF9800);
+
+  /// レッド（Zミノ）
   static const Color red = Color(0xFFF44336);
+
+  /// グリーン（Sミノ）
   static const Color green = Color(0xFF4CAF50);
+
+  /// アンバー（Oミノ）
   static const Color amber = Color(0xFFFFC107);
+
+  /// ブルー（Jミノ）
   static const Color blue = Color(0xFF2196F3);
 
-  // ダークテーマ用
+  /// ダークテーマの背景色
   static const Color darkBackground = Color(0xFF0F0F1F);
+
+  /// ダークテーマのサーフェス色
   static const Color darkSurface = Color(0xFF1A1A2E);
+
+  /// ダークテーマのカード色
   static const Color darkCard = Color(0xFF16213E);
 
-  // ライトテーマ用
+  /// ライトテーマの背景色
   static const Color lightBackground = Color(0xFFF5F5F5);
+
+  /// ライトテーマのサーフェス色
   static const Color lightSurface = Color(0xFFFFFFFF);
+
+  /// ライトテーマのカード色
   static const Color lightCard = Color(0xFFE0E0E0);
 }
 
@@ -157,7 +177,6 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: TetrisColors.blue,
         secondary: TetrisColors.purple,
-        surface: TetrisColors.lightSurface,
         error: TetrisColors.red,
       ),
       appBarTheme: const AppBarTheme(

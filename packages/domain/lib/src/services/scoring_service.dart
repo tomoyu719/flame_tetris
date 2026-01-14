@@ -1,4 +1,4 @@
-import '../value_objects/value_objects.dart';
+import 'package:tetris_domain/src/value_objects/value_objects.dart';
 
 /// スコア計算サービスのインターフェース
 ///

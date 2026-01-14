@@ -384,23 +384,24 @@ void main() {
 
     group('restart', () {
       test('ゲーム中からリスタートできる', () {
-        controller.startGame();
-        // 少し進める
-        controller.move(MoveDirection.left);
-        controller.softDrop();
-
-        controller.restart();
+        controller
+          ..startGame()
+          // 少し進める
+          ..move(MoveDirection.left)
+          ..softDrop()
+          ..restart();
 
         expect(controller.state!.score, equals(0));
         expect(controller.state!.status, equals(GameStatus.playing));
       });
 
       test('ゲームオーバー後にリスタートできる', () {
-        controller.startGame();
-        // 状態を直接変更してゲームオーバーにする（テスト用）
-        controller.forceState(
-          controller.state!.copyWith(status: GameStatus.gameOver),
-        );
+        controller
+          ..startGame()
+          // 状態を直接変更してゲームオーバーにする（テスト用）
+          ..forceState(
+            controller.state!.copyWith(status: GameStatus.gameOver),
+          );
         expect(controller.isGameOver, isTrue);
 
         controller.restart();
@@ -504,7 +505,6 @@ class _TestRotationService implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 

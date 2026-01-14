@@ -31,7 +31,7 @@ void main() {
           board: board,
           currentTetromino: tetromino,
           heldTetromino: null,
-          nextQueue: [TetrominoType.i, TetrominoType.o, TetrominoType.s],
+          nextQueue: const [TetrominoType.i, TetrominoType.o, TetrominoType.s],
           score: 1000,
           level: 3,
           linesCleared: 25,
@@ -117,8 +117,9 @@ void main() {
       });
 
       test('lastClearedLinesを空リストで更新できる', () {
-        final original =
-            GameState.initial().copyWith(lastClearedLines: [10, 11, 12, 13]);
+        final original = GameState.initial().copyWith(
+          lastClearedLines: [10, 11, 12, 13],
+        );
 
         final result = original.copyWith(lastClearedLines: []);
 

@@ -35,7 +35,6 @@ class TestRotationService implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 
@@ -75,7 +74,6 @@ class TestRotationService implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 
@@ -104,7 +102,6 @@ void main() {
         const result = RotationResult(
           tetromino: tetromino,
           success: true,
-          kickIndex: 0,
         );
 
         expect(result.success, isTrue);
@@ -160,7 +157,10 @@ void main() {
         );
 
         expect(result.success, isTrue);
-        expect(result.tetromino.rotation, equals(RotationState.counterClockwise));
+        expect(
+          result.tetromino.rotation,
+          equals(RotationState.counterClockwise),
+        );
       });
 
       test('壁際でウォールキックが適用される', () {

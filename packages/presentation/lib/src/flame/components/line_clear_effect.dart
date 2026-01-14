@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +16,10 @@ class LineClearEffect extends PositionComponent {
     required double cellSize,
     required int boardWidth,
     bool isTetris = false,
-  })  : _lineIndices = lineIndices,
-        _cellSize = cellSize,
-        _boardWidth = boardWidth,
-        _isTetris = isTetris;
+  }) : _lineIndices = lineIndices,
+       _cellSize = cellSize,
+       _boardWidth = boardWidth,
+       _isTetris = isTetris;
 
   final List<int> _lineIndices;
   final double _cellSize;
@@ -84,17 +82,17 @@ class _LineFlashComponent extends PositionComponent {
     required this.cellSize,
     required this.boardWidth,
   }) : super(
-          position: Vector2(0, lineIndex * cellSize),
-          size: Vector2(cellSize * boardWidth, cellSize),
-        );
+         position: Vector2(0, lineIndex * cellSize),
+         size: Vector2(cellSize * boardWidth, cellSize),
+       );
 
   final int lineIndex;
   final double cellSize;
   final int boardWidth;
 
   late final Paint _paint;
-  double _opacity = 1.0;
-  double _elapsed = 0.0;
+  double _opacity = 1;
+  double _elapsed = 0;
   static const double _duration = 0.3;
 
   @override
@@ -131,8 +129,8 @@ class _ScreenFlashComponent extends PositionComponent {
   final int flashCount;
 
   late final Paint _paint;
-  double _opacity = 0.0;
-  double _elapsed = 0.0;
+  double _opacity = 0;
+  double _elapsed = 0;
   int _currentFlash = 0;
   bool _fadingIn = true;
   static const double _flashDuration = 0.05;
@@ -189,16 +187,16 @@ class LevelUpEffect extends PositionComponent {
     required int level,
     required double boardWidth,
     required double boardHeight,
-  })  : _level = level,
-        super(
-          position: Vector2(boardWidth / 2, boardHeight / 2),
-          anchor: Anchor.center,
-        );
+  }) : _level = level,
+       super(
+         position: Vector2(boardWidth / 2, boardHeight / 2),
+         anchor: Anchor.center,
+       );
 
   final int _level;
-  double _scale = 1.0;
-  double _opacity = 1.0;
-  double _elapsed = 0.0;
+  double _scale = 1;
+  double _opacity = 1;
+  double _elapsed = 0;
 
   static const double _duration = 0.8;
   static const double _fadeStartAt = 0.3;
@@ -216,7 +214,6 @@ class LevelUpEffect extends PositionComponent {
         fontWeight: FontWeight.bold,
         shadows: [
           Shadow(
-            color: Colors.black,
             offset: Offset(2, 2),
             blurRadius: 4,
           ),
@@ -237,7 +234,7 @@ class LevelUpEffect extends PositionComponent {
     // フェードアウト: 開始は _fadeStartAt 秒後
     if (_elapsed > _fadeStartAt) {
       final fadeElapsed = _elapsed - _fadeStartAt;
-      final fadeDuration = _duration - _fadeStartAt;
+      const fadeDuration = _duration - _fadeStartAt;
       _opacity = (1.0 - fadeElapsed / fadeDuration).clamp(0.0, 1.0);
     }
 
@@ -252,8 +249,9 @@ class LevelUpEffect extends PositionComponent {
     final text = 'LEVEL $_level';
 
     // スケールと透明度を適用
-    canvas.save();
-    canvas.scale(_scale);
+    canvas
+      ..save()
+      ..scale(_scale);
 
     // テキストの色を透明度付きで再作成
     final style = _textPaint.style.copyWith(
@@ -267,8 +265,7 @@ class LevelUpEffect extends PositionComponent {
       ],
     );
 
-    final paint = TextPaint(style: style);
-    paint.render(
+    TextPaint(style: style).render(
       canvas,
       text,
       Vector2.zero(),

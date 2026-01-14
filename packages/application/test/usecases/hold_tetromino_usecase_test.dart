@@ -5,7 +5,7 @@ import 'package:tetris_domain/tetris_domain.dart';
 void main() {
   group('HoldTetrominoUseCase', () {
     late HoldTetrominoUseCase useCase;
-    int nextTetrominoIndex = 0;
+    var nextTetrominoIndex = 0;
     final nextTetrominoTypes = [
       TetrominoType.i,
       TetrominoType.o,
@@ -13,7 +13,8 @@ void main() {
     ];
 
     Tetromino getNextTetromino() {
-      final type = nextTetrominoTypes[nextTetrominoIndex % nextTetrominoTypes.length];
+      final index = nextTetrominoIndex % nextTetrominoTypes.length;
+      final type = nextTetrominoTypes[index];
       nextTetrominoIndex++;
       return Tetromino.spawn(type);
     }
@@ -31,7 +32,8 @@ void main() {
     }) {
       return GameState(
         board: Board.empty(),
-        currentTetromino: currentTetromino ??
+        currentTetromino:
+            currentTetromino ??
             const Tetromino(
               type: TetrominoType.t,
               position: Position(4, 5),
@@ -71,7 +73,10 @@ void main() {
         final result = useCase.execute(state, getNextTetromino);
 
         expect(result.isSuccess, isTrue);
-        expect(result.state!.heldTetromino!.rotation, equals(RotationState.spawn));
+        expect(
+          result.state!.heldTetromino!.rotation,
+          equals(RotationState.spawn),
+        );
       });
     });
 

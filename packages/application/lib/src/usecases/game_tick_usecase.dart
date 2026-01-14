@@ -1,9 +1,9 @@
+import 'package:tetris_application/src/usecases/usecase_result.dart';
 import 'package:tetris_domain/tetris_domain.dart';
-
-import 'usecase_result.dart';
 
 /// ゲームティックの結果
 class GameTickResult {
+  /// GameTickResultを生成
   const GameTickResult({
     required this.state,
     required this.linesCleared,
@@ -96,7 +96,9 @@ class GameTickUseCase {
       final x = tetromino.position.x + offset.x;
       final y = tetromino.position.y + offset.y;
 
-      if (y >= 0 && y < Board.defaultHeight && x >= 0 && x < Board.defaultWidth) {
+      final isYInBounds = y >= 0 && y < Board.defaultHeight;
+      final isXInBounds = x >= 0 && x < Board.defaultWidth;
+      if (isYInBounds && isXInBounds) {
         board = board.setCell(Position(x, y), tetromino.type);
       }
     }

@@ -23,8 +23,9 @@ void main() {
           showGhost: false,
           isMuted: true,
         );
-        when(() => mockRepository.getSettings())
-            .thenAnswer((_) async => settings);
+        when(
+          () => mockRepository.getSettings(),
+        ).thenAnswer((_) async => settings);
 
         final result = await usecase.execute();
 
@@ -36,8 +37,9 @@ void main() {
       });
 
       test('デフォルト設定を取得できる', () async {
-        when(() => mockRepository.getSettings())
-            .thenAnswer((_) async => GameSettings());
+        when(
+          () => mockRepository.getSettings(),
+        ).thenAnswer((_) async => GameSettings());
 
         final result = await usecase.execute();
 
@@ -51,13 +53,14 @@ void main() {
     group('executeKeyBindings', () {
       test('リポジトリからキーバインドを取得できる', () async {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
           },
         );
-        when(() => mockRepository.getKeyBindings())
-            .thenAnswer((_) async => bindings);
+        when(
+          () => mockRepository.getKeyBindings(),
+        ).thenAnswer((_) async => bindings);
 
         final result = await usecase.executeKeyBindings();
 
@@ -67,8 +70,9 @@ void main() {
       });
 
       test('デフォルトキーバインドを取得できる', () async {
-        when(() => mockRepository.getKeyBindings())
-            .thenAnswer((_) async => KeyBindings());
+        when(
+          () => mockRepository.getKeyBindings(),
+        ).thenAnswer((_) async => KeyBindings());
 
         final result = await usecase.executeKeyBindings();
 

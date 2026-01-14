@@ -35,7 +35,7 @@ void main() {
 
       test('カスタム値で生成できる', () {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
           },
@@ -80,7 +80,7 @@ void main() {
     group('JSON変換', () {
       test('toJsonで正しくシリアライズできる', () {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
           },
@@ -111,7 +111,7 @@ void main() {
 
       test('toJson→fromJsonで往復できる', () {
         final original = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
             GameAction.softDrop: 'KeyS',
@@ -139,7 +139,7 @@ void main() {
       test('異なるバインドのKeyBindingsは等しくない', () {
         final bindings1 = KeyBindings();
         final bindings2 = KeyBindings(
-          bindings: {GameAction.moveLeft: 'KeyA'},
+          bindings: const {GameAction.moveLeft: 'KeyA'},
         );
 
         expect(bindings1, isNot(equals(bindings2)));

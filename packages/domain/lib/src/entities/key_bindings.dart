@@ -41,10 +41,10 @@ class KeyBindings {
   ///
   /// [bindings]で指定されていないアクションはデフォルト値を使用する。
   KeyBindings({Map<GameAction, String>? bindings})
-      : _bindings = {
-          ..._defaultBindings,
-          ...?bindings,
-        };
+    : _bindings = {
+        ..._defaultBindings,
+        ...?bindings,
+      };
 
   /// JSONからKeyBindingsを生成
   factory KeyBindings.fromJson(Map<String, dynamic> json) {
@@ -127,7 +127,7 @@ class KeyBindings {
   @override
   int get hashCode {
     return Object.hashAll(
-      GameAction.values.map((action) => getKey(action)),
+      GameAction.values.map(getKey),
     );
   }
 

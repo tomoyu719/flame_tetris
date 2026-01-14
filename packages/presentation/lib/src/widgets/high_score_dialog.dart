@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../l10n/tetris_l10n.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 import 'package:tetris_infrastructure/tetris_infrastructure.dart';
+import 'package:tetris_presentation/src/l10n/tetris_l10n.dart';
 
 /// ハイスコアリポジトリProvider
 final _scoreRepositoryProvider = Provider<ScoreRepository>((ref) {
@@ -80,7 +79,10 @@ class HighScoreDialog extends ConsumerWidget {
                 'Error: $error',
                 style: const TextStyle(color: Colors.red),
               ),
-              data: (highScore) => _HighScoreContent(highScore: highScore, l10n: l10n),
+              data: (highScore) => _HighScoreContent(
+                highScore: highScore,
+                l10n: l10n,
+              ),
             ),
 
             const SizedBox(height: 24),
@@ -91,11 +93,14 @@ class HighScoreDialog extends ConsumerWidget {
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      theme.colorScheme.primary.withValues(alpha: 0.2),
+                  backgroundColor: theme.colorScheme.primary.withValues(
+                    alpha: 0.2,
+                  ),
                   foregroundColor: theme.colorScheme.primary,
-                  side:
-                      BorderSide(color: theme.colorScheme.primary, width: 1.5),
+                  side: BorderSide(
+                    color: theme.colorScheme.primary,
+                    width: 1.5,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -216,8 +221,12 @@ class _HighScoreContent extends StatelessWidget {
     if (date.millisecondsSinceEpoch == 0) {
       return '';
     }
-    return '${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')} '
-        '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+    final year = date.year;
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    final hour = date.hour.toString().padLeft(2, '0');
+    final minute = date.minute.toString().padLeft(2, '0');
+    return '$year/$month/$day $hour:$minute';
   }
 }
 

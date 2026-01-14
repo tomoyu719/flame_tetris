@@ -1,17 +1,9 @@
-import '../entities/entities.dart';
-import '../enums/enums.dart';
+import 'package:tetris_domain/src/entities/entities.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// 回転結果を表すクラス
 class RotationResult {
-  /// 回転後のテトリミノ
-  final Tetromino tetromino;
-
-  /// 回転が成功したかどうか
-  final bool success;
-
-  /// 使用されたウォールキックのインデックス（0-4、キックなしは0）
-  final int kickIndex;
-
+  /// RotationResultを生成
   const RotationResult({
     required this.tetromino,
     required this.success,
@@ -26,6 +18,15 @@ class RotationResult {
       kickIndex: -1,
     );
   }
+
+  /// 回転後のテトリミノ
+  final Tetromino tetromino;
+
+  /// 回転が成功したかどうか
+  final bool success;
+
+  /// 使用されたウォールキックのインデックス（0-4、キックなしは0）
+  final int kickIndex;
 }
 
 /// SRS（Super Rotation System）に基づく回転サービスのインターフェース

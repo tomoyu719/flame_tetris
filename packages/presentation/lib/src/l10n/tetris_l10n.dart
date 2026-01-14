@@ -217,8 +217,8 @@ class TetrisL10nProvider extends InheritedWidget {
 
   /// BuildContextからTetrisL10nを取得
   static TetrisL10n of(BuildContext context) {
-    final provider =
-        context.dependOnInheritedWidgetOfExactType<TetrisL10nProvider>();
+    final provider = context
+        .dependOnInheritedWidgetOfExactType<TetrisL10nProvider>();
     return provider?.l10n ?? const TetrisL10n();
   }
 

@@ -2,12 +2,12 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import '../flame/tetris_game.dart';
-import '../widgets/hold_panel.dart';
-import '../widgets/mobile_controls.dart';
-import '../widgets/next_panel.dart';
-import '../widgets/responsive_layout.dart';
-import '../widgets/score_panel.dart';
+import 'package:tetris_presentation/src/flame/tetris_game.dart';
+import 'package:tetris_presentation/src/widgets/hold_panel.dart';
+import 'package:tetris_presentation/src/widgets/mobile_controls.dart';
+import 'package:tetris_presentation/src/widgets/next_panel.dart';
+import 'package:tetris_presentation/src/widgets/responsive_layout.dart';
+import 'package:tetris_presentation/src/widgets/score_panel.dart';
 
 /// ゲームメイン画面
 class GameScreen extends StatefulWidget {
@@ -55,7 +55,9 @@ class _GameScreenState extends State<GameScreen> {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final deviceType = ResponsiveLayout.getDeviceType(constraints.maxWidth);
+            final deviceType = ResponsiveLayout.getDeviceType(
+              constraints.maxWidth,
+            );
 
             switch (deviceType) {
               case DeviceType.mobile:
@@ -146,7 +148,6 @@ class _GameScreenState extends State<GameScreen> {
                 HoldPanel(
                   heldType: _gameState?.heldTetromino?.type,
                   canHold: _gameState?.canHold ?? true,
-                  cellSize: 16,
                 ),
                 const SizedBox(height: 12),
                 ScorePanel(
@@ -176,7 +177,6 @@ class _GameScreenState extends State<GameScreen> {
             padding: const EdgeInsets.all(12),
             child: NextPanel(
               nextQueue: _gameState?.nextQueue ?? [],
-              cellSize: 16,
             ),
           ),
         ),
@@ -254,7 +254,7 @@ class GameOverOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
+    return ColoredBox(
       color: Colors.black54,
       child: Center(
         child: Container(
@@ -293,8 +293,9 @@ class GameOverOverlay extends StatelessWidget {
                   ElevatedButton(
                     onPressed: onRestart,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          theme.colorScheme.primary.withValues(alpha: 0.2),
+                      backgroundColor: theme.colorScheme.primary.withValues(
+                        alpha: 0.2,
+                      ),
                       foregroundColor: theme.colorScheme.primary,
                       side: BorderSide(
                         color: theme.colorScheme.primary,
@@ -311,8 +312,9 @@ class GameOverOverlay extends StatelessWidget {
                   ElevatedButton(
                     onPressed: onQuit,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          theme.colorScheme.error.withValues(alpha: 0.2),
+                      backgroundColor: theme.colorScheme.error.withValues(
+                        alpha: 0.2,
+                      ),
                       foregroundColor: theme.colorScheme.error,
                       side: BorderSide(
                         color: theme.colorScheme.error,

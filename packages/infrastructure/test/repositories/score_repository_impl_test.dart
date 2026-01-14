@@ -28,7 +28,7 @@ void main() {
           score: 10000,
           level: 8,
           linesCleared: 45,
-          achievedAt: DateTime(2026, 1, 15, 10, 30, 0),
+          achievedAt: DateTime(2026, 1, 15, 10, 30),
         );
 
         // 先に保存
@@ -62,7 +62,7 @@ void main() {
           score: 15000,
           level: 10,
           linesCleared: 60,
-          achievedAt: DateTime(2026, 2, 20, 14, 0, 0),
+          achievedAt: DateTime(2026, 2, 20, 14),
         );
 
         final result = await repository.saveHighScore(highScore);
@@ -81,7 +81,7 @@ void main() {
           score: 5000,
           level: 5,
           linesCleared: 20,
-          achievedAt: DateTime(2026, 1, 1),
+          achievedAt: DateTime(2026),
         );
         final second = HighScore(
           score: 20000,

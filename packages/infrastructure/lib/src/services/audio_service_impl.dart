@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
@@ -8,7 +10,7 @@ class AudioServiceImpl implements AudioService {
   /// AudioServiceImplを生成
   AudioServiceImpl();
 
-  double _soundEffectVolume = 1.0;
+  double _soundEffectVolume = 1;
   double _bgmVolume = 0.5;
   bool _isMuted = false;
   bool _isBgmPlaying = false;
@@ -42,7 +44,7 @@ class AudioServiceImpl implements AudioService {
 
     final file = _soundEffectFiles[effect];
     if (file != null) {
-      FlameAudio.play(file, volume: _soundEffectVolume);
+      unawaited(FlameAudio.play(file, volume: _soundEffectVolume));
     }
   }
 
@@ -55,12 +57,12 @@ class AudioServiceImpl implements AudioService {
 
     // 現在のBGMを停止
     if (_isBgmPlaying) {
-      FlameAudio.bgm.stop();
+      unawaited(FlameAudio.bgm.stop());
     }
 
     final file = _bgmFiles[type];
     if (file != null) {
-      FlameAudio.bgm.play(file, volume: _bgmVolume);
+      unawaited(FlameAudio.bgm.play(file, volume: _bgmVolume));
       _isBgmPlaying = true;
       _currentBgmType = type;
     }
@@ -87,20 +89,20 @@ class AudioServiceImpl implements AudioService {
   void stopBgm() {
     _isBgmPlaying = false;
     _currentBgmType = null;
-    FlameAudio.bgm.stop();
+    unawaited(FlameAudio.bgm.stop());
   }
 
   @override
   void pauseBgm() {
     if (_isBgmPlaying) {
-      FlameAudio.bgm.pause();
+      unawaited(FlameAudio.bgm.pause());
     }
   }
 
   @override
   void resumeBgm() {
     if (_isBgmPlaying && !_isMuted) {
-      FlameAudio.bgm.resume();
+      unawaited(FlameAudio.bgm.resume());
     }
   }
 
@@ -127,7 +129,7 @@ class AudioServiceImpl implements AudioService {
   void mute() {
     _isMuted = true;
     if (_isBgmPlaying) {
-      FlameAudio.bgm.pause();
+      unawaited(FlameAudio.bgm.pause());
     }
   }
 
@@ -135,7 +137,7 @@ class AudioServiceImpl implements AudioService {
   void unmute() {
     _isMuted = false;
     if (_isBgmPlaying) {
-      FlameAudio.bgm.resume();
+      unawaited(FlameAudio.bgm.resume());
     }
   }
 
@@ -144,7 +146,7 @@ class AudioServiceImpl implements AudioService {
 
   @override
   void dispose() {
-    FlameAudio.bgm.stop();
-    FlameAudio.bgm.dispose();
+    unawaited(FlameAudio.bgm.stop());
+    unawaited(FlameAudio.bgm.dispose());
   }
 }

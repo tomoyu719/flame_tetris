@@ -1,6 +1,9 @@
+import 'package:meta/meta.dart';
+
 /// ゲームレベルを表すValue Object
 ///
 /// レベルは1〜15の範囲で、レベルが上がるとテトリミノの落下速度が速くなる
+@immutable
 class Level {
   /// 指定した値でLevelを生成
   ///

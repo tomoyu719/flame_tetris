@@ -6,6 +6,8 @@ class MockScoreRepository implements ScoreRepository {
   HighScore? savedHighScore;
   bool shouldFail = false;
 
+  // テスト用メソッドのため、メソッド形式を維持
+  // ignore: use_setters_to_change_properties
   void setHighScore(HighScore score) {
     _highScore = score;
   }

@@ -5,7 +5,7 @@ import 'package:tetris_domain/tetris_domain.dart';
 void main() {
   group('StartGameUseCase', () {
     late StartGameUseCase useCase;
-    int nextTetrominoIndex = 0;
+    var nextTetrominoIndex = 0;
     final tetrominoSequence = [
       TetrominoType.t,
       TetrominoType.i,
@@ -15,7 +15,8 @@ void main() {
     ];
 
     TetrominoType getNextTetromino() {
-      final type = tetrominoSequence[nextTetrominoIndex % tetrominoSequence.length];
+      final index = nextTetrominoIndex % tetrominoSequence.length;
+      final type = tetrominoSequence[index];
       nextTetrominoIndex++;
       return type;
     }

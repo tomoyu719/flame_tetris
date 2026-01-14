@@ -19,7 +19,8 @@ void main() {
     }) {
       return GameState(
         board: board ?? Board.empty(),
-        currentTetromino: currentTetromino ??
+        currentTetromino:
+            currentTetromino ??
             const Tetromino(
               type: TetrominoType.t,
               position: Position(4, 5),
@@ -68,7 +69,10 @@ void main() {
       test('空のボードで回転できる', () {
         final state = createGameState();
 
-        final result = useCase.execute(state, RotationDirection.counterClockwise);
+        final result = useCase.execute(
+          state,
+          RotationDirection.counterClockwise,
+        );
 
         expect(result.isSuccess, isTrue);
         expect(
@@ -154,7 +158,6 @@ class _TestRotationService implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 
@@ -173,7 +176,6 @@ class _TestRotationService implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 

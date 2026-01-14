@@ -101,7 +101,7 @@ void main() {
 
       test('保存されたバインドを取得できる', () async {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
           },
@@ -133,7 +133,7 @@ void main() {
     group('saveKeyBindings', () {
       test('バインドを保存できる', () async {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
             GameAction.softDrop: 'KeyS',
@@ -160,7 +160,7 @@ void main() {
           GameSettings(soundEffectVolume: 0.1, bgmVolume: 0.1),
         );
         await repository.saveKeyBindings(
-          KeyBindings(bindings: {GameAction.moveLeft: 'KeyA'}),
+          KeyBindings(bindings: const {GameAction.moveLeft: 'KeyA'}),
         );
 
         // リセット

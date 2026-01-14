@@ -1,5 +1,5 @@
-import '../entities/position.dart';
-import '../enums/enums.dart';
+import 'package:tetris_domain/src/entities/position.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// 各テトリミノの形状データ（回転状態ごとの相対座標）
 ///
@@ -17,14 +17,14 @@ abstract final class TetrominoShapes {
 
   static final Map<TetrominoType, Map<RotationState, List<Position>>> _shapes =
       {
-    TetrominoType.i: _iShapes,
-    TetrominoType.o: _oShapes,
-    TetrominoType.t: _tShapes,
-    TetrominoType.s: _sShapes,
-    TetrominoType.z: _zShapes,
-    TetrominoType.j: _jShapes,
-    TetrominoType.l: _lShapes,
-  };
+        TetrominoType.i: _iShapes,
+        TetrominoType.o: _oShapes,
+        TetrominoType.t: _tShapes,
+        TetrominoType.s: _sShapes,
+        TetrominoType.z: _zShapes,
+        TetrominoType.j: _jShapes,
+        TetrominoType.l: _lShapes,
+      };
 
   // I-テトリミノ (水色) - 4x1 棒状
   //

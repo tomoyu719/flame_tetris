@@ -17,10 +17,10 @@ class BlockComponent extends RectangleComponent {
     required double cellSize,
     bool isGhost = false,
   }) : super(
-          size: Vector2.all(cellSize - 2), // 1pxの隙間
-          paint: Paint()
-            ..color = _getColor(type).withValues(alpha: isGhost ? 0.3 : 1.0),
-        ) {
+         size: Vector2.all(cellSize - 2), // 1pxの隙間
+         paint: Paint()
+           ..color = _getColor(type).withValues(alpha: isGhost ? 0.3 : 1.0),
+       ) {
     // 枠線用のペイント
     _borderPaint = Paint()
       ..color = _getBorderColor(type).withValues(alpha: isGhost ? 0.3 : 1.0)

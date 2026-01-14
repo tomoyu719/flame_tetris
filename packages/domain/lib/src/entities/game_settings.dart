@@ -14,8 +14,8 @@ class GameSettings {
     double bgmVolume = 0.5,
     this.showGhost = true,
     this.isMuted = false,
-  })  : soundEffectVolume = soundEffectVolume.clamp(0.0, 1.0),
-        bgmVolume = bgmVolume.clamp(0.0, 1.0);
+  }) : soundEffectVolume = soundEffectVolume.clamp(0.0, 1.0),
+       bgmVolume = bgmVolume.clamp(0.0, 1.0);
 
   /// JSONからGameSettingsを生成
   factory GameSettings.fromJson(Map<String, dynamic> json) {

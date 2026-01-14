@@ -65,55 +65,55 @@ class TetrisApp extends ConsumerWidget {
           child: TetrisL10nProvider(
             l10n: appL10n != null
                 ? TetrisL10n(
-                  appTitle: appL10n.appTitle,
-                  titleTetris: appL10n.titleTetris,
-                  titleSubtitle: appL10n.titleSubtitle,
-                  menuStart: appL10n.menuStart,
-                  menuHighScore: appL10n.menuHighScore,
-                  menuSettings: appL10n.menuSettings,
-                  copyright: appL10n.copyright,
-                  labelScore: appL10n.labelScore,
-                  labelLevel: appL10n.labelLevel,
-                  labelLines: appL10n.labelLines,
-                  labelNext: appL10n.labelNext,
-                  labelHold: appL10n.labelHold,
-                  gameOver: appL10n.gameOver,
-                  newHighScore: appL10n.newHighScore,
-                  buttonRetry: appL10n.buttonRetry,
-                  buttonTitle: appL10n.buttonTitle,
-                  paused: appL10n.paused,
-                  buttonResume: appL10n.buttonResume,
-                  buttonQuit: appL10n.buttonQuit,
-                  settingsTitle: appL10n.settingsTitle,
-                  settingsAudio: appL10n.settingsAudio,
-                  settingsBgmVolume: appL10n.settingsBgmVolume,
-                  settingsSeVolume: appL10n.settingsSeVolume,
-                  settingsMuteAll: appL10n.settingsMuteAll,
-                  settingsGameplay: appL10n.settingsGameplay,
-                  settingsGhostPiece: appL10n.settingsGhostPiece,
-                  settingsResetDefaults: appL10n.settingsResetDefaults,
-                  settingsVersion: appL10n.settingsVersion('1.0.0'),
-                  dialogResetTitle: appL10n.dialogResetTitle,
-                  dialogResetContent: appL10n.dialogResetContent,
-                  dialogCancel: appL10n.dialogCancel,
-                  dialogReset: appL10n.dialogReset,
-                  snackbarSettingsReset: appL10n.snackbarSettingsReset,
-                  errorLoadSettings: appL10n.errorLoadSettings,
-                  highScoreDialogTitle: appL10n.highScoreDialogTitle,
-                  highScoreNoRecord: appL10n.highScoreNoRecord,
-                  highScoreDate: appL10n.highScoreDate,
-                  buttonClose: appL10n.buttonClose,
-                  pauseHint: appL10n.pauseHint,
-                  highScorePlayPrompt: appL10n.highScorePlayPrompt,
-                  settingsAppearance: appL10n.settingsAppearance,
-                  settingsTheme: appL10n.settingsTheme,
-                  settingsThemeDark: appL10n.settingsThemeDark,
-                  settingsThemeLight: appL10n.settingsThemeLight,
-                  settingsThemeSystem: appL10n.settingsThemeSystem,
-                  settingsLanguage: appL10n.settingsLanguage,
-                  settingsLanguageEnglish: appL10n.settingsLanguageEnglish,
-                  settingsLanguageJapanese: appL10n.settingsLanguageJapanese,
-                )
+                    appTitle: appL10n.appTitle,
+                    titleTetris: appL10n.titleTetris,
+                    titleSubtitle: appL10n.titleSubtitle,
+                    menuStart: appL10n.menuStart,
+                    menuHighScore: appL10n.menuHighScore,
+                    menuSettings: appL10n.menuSettings,
+                    copyright: appL10n.copyright,
+                    labelScore: appL10n.labelScore,
+                    labelLevel: appL10n.labelLevel,
+                    labelLines: appL10n.labelLines,
+                    labelNext: appL10n.labelNext,
+                    labelHold: appL10n.labelHold,
+                    gameOver: appL10n.gameOver,
+                    newHighScore: appL10n.newHighScore,
+                    buttonRetry: appL10n.buttonRetry,
+                    buttonTitle: appL10n.buttonTitle,
+                    paused: appL10n.paused,
+                    buttonResume: appL10n.buttonResume,
+                    buttonQuit: appL10n.buttonQuit,
+                    settingsTitle: appL10n.settingsTitle,
+                    settingsAudio: appL10n.settingsAudio,
+                    settingsBgmVolume: appL10n.settingsBgmVolume,
+                    settingsSeVolume: appL10n.settingsSeVolume,
+                    settingsMuteAll: appL10n.settingsMuteAll,
+                    settingsGameplay: appL10n.settingsGameplay,
+                    settingsGhostPiece: appL10n.settingsGhostPiece,
+                    settingsResetDefaults: appL10n.settingsResetDefaults,
+                    settingsVersion: appL10n.settingsVersion('1.0.0'),
+                    dialogResetTitle: appL10n.dialogResetTitle,
+                    dialogResetContent: appL10n.dialogResetContent,
+                    dialogCancel: appL10n.dialogCancel,
+                    dialogReset: appL10n.dialogReset,
+                    snackbarSettingsReset: appL10n.snackbarSettingsReset,
+                    errorLoadSettings: appL10n.errorLoadSettings,
+                    highScoreDialogTitle: appL10n.highScoreDialogTitle,
+                    highScoreNoRecord: appL10n.highScoreNoRecord,
+                    highScoreDate: appL10n.highScoreDate,
+                    buttonClose: appL10n.buttonClose,
+                    pauseHint: appL10n.pauseHint,
+                    highScorePlayPrompt: appL10n.highScorePlayPrompt,
+                    settingsAppearance: appL10n.settingsAppearance,
+                    settingsTheme: appL10n.settingsTheme,
+                    settingsThemeDark: appL10n.settingsThemeDark,
+                    settingsThemeLight: appL10n.settingsThemeLight,
+                    settingsThemeSystem: appL10n.settingsThemeSystem,
+                    settingsLanguage: appL10n.settingsLanguage,
+                    settingsLanguageEnglish: appL10n.settingsLanguageEnglish,
+                    settingsLanguageJapanese: appL10n.settingsLanguageJapanese,
+                  )
                 : const TetrisL10n(),
             child: child ?? const SizedBox.shrink(),
           ),
@@ -153,15 +153,14 @@ class _GamePageState extends ConsumerState<GamePage> {
 
     // ゲーム状態変更時のコールバック
     _game.onStateChanged = (state) {
-      if (mounted) {
-        setState(() {
-          _isPaused = _game.isPaused;
-        });
+      if (!mounted) return;
 
-        // ゲームオーバー時の処理
-        if (_game.isGameOver) {
-          unawaited(_handleGameOver(state));
-        }
+      setState(() {
+        _isPaused = _game.isPaused;
+      });
+
+      if (_game.isGameOver) {
+        unawaited(_handleGameOver(state));
       }
     };
   }

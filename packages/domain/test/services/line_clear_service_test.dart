@@ -149,14 +149,17 @@ void main() {
           board = board.setCell(Position(x, 19), TetrominoType.i);
         }
         // その上にブロックを1つ置く
-        board = board.setCell(Position(5, 18), TetrominoType.t);
+        board = board.setCell(const Position(5, 18), TetrominoType.t);
 
         final result = service.clearLines(board);
 
         expect(result.linesCleared.value, equals(1));
         expect(result.clearedLineIndices, equals([19]));
         // 上のブロックが落ちてきている
-        expect(result.board.getCell(const Position(5, 19)), equals(TetrominoType.t));
+        expect(
+          result.board.getCell(const Position(5, 19)),
+          equals(TetrominoType.t),
+        );
         expect(result.board.getCell(const Position(5, 18)), isNull);
       });
 
@@ -168,14 +171,17 @@ void main() {
           board = board.setCell(Position(x, 19), TetrominoType.i);
         }
         // その上にブロックを置く
-        board = board.setCell(Position(5, 17), TetrominoType.t);
+        board = board.setCell(const Position(5, 17), TetrominoType.t);
 
         final result = service.clearLines(board);
 
         expect(result.linesCleared.value, equals(2));
         expect(result.clearedLineIndices, equals([18, 19]));
         // 上のブロックが2行分落ちてきている
-        expect(result.board.getCell(const Position(5, 19)), equals(TetrominoType.t));
+        expect(
+          result.board.getCell(const Position(5, 19)),
+          equals(TetrominoType.t),
+        );
       });
 
       test('3行同時消去できる（トリプル）', () {
@@ -218,15 +224,21 @@ void main() {
           board = board.setCell(Position(x, 19), TetrominoType.i);
         }
         // 未完成行にブロックを置く
-        board = board.setCell(Position(3, 16), TetrominoType.t);
-        board = board.setCell(Position(7, 18), TetrominoType.s);
+        board = board.setCell(const Position(3, 16), TetrominoType.t);
+        board = board.setCell(const Position(7, 18), TetrominoType.s);
 
         final result = service.clearLines(board);
 
         expect(result.linesCleared.value, equals(3));
         // 16行と18行のブロックが落ちてきている
-        expect(result.board.getCell(const Position(3, 18)), equals(TetrominoType.t));
-        expect(result.board.getCell(const Position(7, 19)), equals(TetrominoType.s));
+        expect(
+          result.board.getCell(const Position(3, 18)),
+          equals(TetrominoType.t),
+        );
+        expect(
+          result.board.getCell(const Position(7, 19)),
+          equals(TetrominoType.s),
+        );
       });
     });
   });

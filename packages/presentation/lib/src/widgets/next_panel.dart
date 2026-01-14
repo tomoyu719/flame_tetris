@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import 'tetromino_preview.dart';
+import 'package:tetris_presentation/src/widgets/tetromino_preview.dart';
 
 /// NEXTテトリミノを表示するパネル
 class NextPanel extends StatelessWidget {
@@ -32,7 +32,6 @@ class NextPanel extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             'NEXT',

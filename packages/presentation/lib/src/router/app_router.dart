@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../screens/screens.dart';
+import 'package:tetris_presentation/src/screens/screens.dart';
 
 /// アプリケーションのルート定義
 class AppRoutes {

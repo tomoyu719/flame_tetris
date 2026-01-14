@@ -1,5 +1,5 @@
-import '../entities/entities.dart';
-import '../enums/enums.dart';
+import 'package:tetris_domain/src/entities/entities.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// 衝突判定サービスのインターフェース
 ///

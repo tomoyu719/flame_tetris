@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
 
-import '../enums/enums.dart';
-import 'board.dart';
-import 'tetromino.dart';
+import 'package:tetris_domain/src/entities/board.dart';
+import 'package:tetris_domain/src/entities/tetromino.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// ゲーム全体の状態を表すイミュータブルなクラス
 ///
@@ -130,17 +130,17 @@ class GameState {
 
   @override
   int get hashCode => Object.hash(
-        board,
-        currentTetromino,
-        heldTetromino,
-        Object.hashAll(nextQueue),
-        score,
-        level,
-        linesCleared,
-        status,
-        canHold,
-        Object.hashAll(lastClearedLines),
-      );
+    board,
+    currentTetromino,
+    heldTetromino,
+    Object.hashAll(nextQueue),
+    score,
+    level,
+    linesCleared,
+    status,
+    canHold,
+    Object.hashAll(lastClearedLines),
+  );
 
   @override
   String toString() =>

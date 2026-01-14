@@ -28,8 +28,9 @@ void main() {
           showGhost: false,
           isMuted: true,
         );
-        when(() => mockRepository.saveSettings(any()))
-            .thenAnswer((_) async => true);
+        when(
+          () => mockRepository.saveSettings(any()),
+        ).thenAnswer((_) async => true);
 
         final result = await usecase.execute(settings);
 
@@ -39,8 +40,9 @@ void main() {
 
       test('保存失敗時はfalseを返す', () async {
         final settings = GameSettings();
-        when(() => mockRepository.saveSettings(any()))
-            .thenAnswer((_) async => false);
+        when(
+          () => mockRepository.saveSettings(any()),
+        ).thenAnswer((_) async => false);
 
         final result = await usecase.execute(settings);
 
@@ -51,13 +53,14 @@ void main() {
     group('executeKeyBindings', () {
       test('キーバインドを保存できる', () async {
         final bindings = KeyBindings(
-          bindings: {
+          bindings: const {
             GameAction.moveLeft: 'KeyA',
             GameAction.moveRight: 'KeyD',
           },
         );
-        when(() => mockRepository.saveKeyBindings(any()))
-            .thenAnswer((_) async => true);
+        when(
+          () => mockRepository.saveKeyBindings(any()),
+        ).thenAnswer((_) async => true);
 
         final result = await usecase.executeKeyBindings(bindings);
 
@@ -67,8 +70,9 @@ void main() {
 
       test('保存失敗時はfalseを返す', () async {
         final bindings = KeyBindings();
-        when(() => mockRepository.saveKeyBindings(any()))
-            .thenAnswer((_) async => false);
+        when(
+          () => mockRepository.saveKeyBindings(any()),
+        ).thenAnswer((_) async => false);
 
         final result = await usecase.executeKeyBindings(bindings);
 
@@ -78,8 +82,9 @@ void main() {
 
     group('executeReset', () {
       test('設定をリセットできる', () async {
-        when(() => mockRepository.resetToDefaults())
-            .thenAnswer((_) async => true);
+        when(
+          () => mockRepository.resetToDefaults(),
+        ).thenAnswer((_) async => true);
 
         final result = await usecase.executeReset();
 
@@ -88,8 +93,9 @@ void main() {
       });
 
       test('リセット失敗時はfalseを返す', () async {
-        when(() => mockRepository.resetToDefaults())
-            .thenAnswer((_) async => false);
+        when(
+          () => mockRepository.resetToDefaults(),
+        ).thenAnswer((_) async => false);
 
         final result = await usecase.executeReset();
 

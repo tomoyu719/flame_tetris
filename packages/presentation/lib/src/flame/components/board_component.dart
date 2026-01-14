@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import 'block_component.dart';
-import 'line_clear_effect.dart';
-import 'tetromino_component.dart';
+import 'package:tetris_presentation/src/flame/components/block_component.dart';
+import 'package:tetris_presentation/src/flame/components/line_clear_effect.dart';
+import 'package:tetris_presentation/src/flame/components/tetromino_component.dart';
 
 /// ゲームボードを描画するコンポーネント
 ///
@@ -23,15 +25,15 @@ class BoardComponent extends PositionComponent {
     required double cellSize,
     int boardWidth = Board.defaultWidth,
     int boardHeight = Board.defaultHeight,
-  })  : _cellSize = cellSize,
-        _boardWidth = boardWidth,
-        _boardHeight = boardHeight,
-        super(
-          size: Vector2(
-            cellSize * boardWidth,
-            cellSize * boardHeight,
-          ),
-        );
+  }) : _cellSize = cellSize,
+       _boardWidth = boardWidth,
+       _boardHeight = boardHeight,
+       super(
+         size: Vector2(
+           cellSize * boardWidth,
+           cellSize * boardHeight,
+         ),
+       );
 
   final double _cellSize;
   final int _boardWidth;
@@ -142,6 +144,8 @@ class BoardComponent extends PositionComponent {
         boardWidth: _boardWidth,
         isTetris: isTetris,
       );
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(effect);
 
       _previousClearedLines = clearedLines;
@@ -158,6 +162,8 @@ class BoardComponent extends PositionComponent {
         boardWidth: size.x,
         boardHeight: size.y,
       );
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(effect);
     }
     _previousLevel = state.level;
@@ -178,14 +184,19 @@ class BoardComponent extends PositionComponent {
 
           // 既存のブロックがない場合は追加
           if (!_fixedBlocks.containsKey(pos)) {
-            final block = BlockComponent(
-              type: cell,
-              cellSize: _cellSize,
-            )..position = Vector2(
-                x * _cellSize + 1, // 1px のオフセット
-                y * _cellSize + 1,
-              );
+            final block =
+                BlockComponent(
+                    type: cell,
+                    cellSize: _cellSize,
+                  )
+                  ..position = Vector2(
+                    x * _cellSize + 1, // 1px のオフセット
+                    y * _cellSize + 1,
+                  );
             _fixedBlocks[pos] = block;
+            // Flame's add() returns FutureOr<void>,
+            // fire-and-forget is intentional.
+            // ignore: discarded_futures
             add(block);
           }
         }
@@ -214,13 +225,17 @@ class BoardComponent extends PositionComponent {
     }
 
     if (_currentTetrominoComponent == null) {
-      _currentTetrominoComponent = TetrominoComponent(
-        tetromino: tetromino,
-        cellSize: _cellSize,
-      )..position = Vector2(
-          tetromino.position.x * _cellSize + 1,
-          tetromino.position.y * _cellSize + 1,
-        );
+      _currentTetrominoComponent =
+          TetrominoComponent(
+              tetromino: tetromino,
+              cellSize: _cellSize,
+            )
+            ..position = Vector2(
+              tetromino.position.x * _cellSize + 1,
+              tetromino.position.y * _cellSize + 1,
+            );
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(_currentTetrominoComponent!);
     } else {
       _currentTetrominoComponent!
@@ -258,13 +273,17 @@ class BoardComponent extends PositionComponent {
     );
 
     if (_ghostComponent == null) {
-      _ghostComponent = GhostTetrominoComponent(
-        tetromino: ghostTetromino,
-        cellSize: _cellSize,
-      )..position = Vector2(
-          ghostTetromino.position.x * _cellSize + 1,
-          ghostTetromino.position.y * _cellSize + 1,
-        );
+      _ghostComponent =
+          GhostTetrominoComponent(
+              tetromino: ghostTetromino,
+              cellSize: _cellSize,
+            )
+            ..position = Vector2(
+              ghostTetromino.position.x * _cellSize + 1,
+              ghostTetromino.position.y * _cellSize + 1,
+            );
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(_ghostComponent!);
     } else {
       _ghostComponent!
@@ -284,7 +303,8 @@ class BoardComponent extends PositionComponent {
     final boardHash = _fixedBlocks.length;
 
     // キャッシュが有効かチェック
-    final cacheValid = _cachedGhostY != null &&
+    final cacheValid =
+        _cachedGhostY != null &&
         _lastTetrominoX == tetromino.position.x &&
         _lastTetrominoRotation == tetromino.rotation &&
         _lastTetrominoType == tetromino.type &&

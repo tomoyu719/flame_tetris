@@ -216,8 +216,10 @@ void main() {
       });
 
       test('他のブロックの上に達したテトリミノはロック可能', () {
-        final board =
-            emptyBoard.setCell(const Position(5, 10), TetrominoType.i);
+        final board = emptyBoard.setCell(
+          const Position(5, 10),
+          TetrominoType.i,
+        );
         const tetromino = Tetromino(
           type: TetrominoType.t,
           position: Position(4, 8),

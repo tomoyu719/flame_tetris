@@ -225,7 +225,7 @@ class ResponsiveSpacing {
 
   /// 小さいスペーシング
   static double small(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 8,
       tablet: 12,
       desktop: 16,
@@ -234,7 +234,7 @@ class ResponsiveSpacing {
 
   /// 中程度のスペーシング
   static double medium(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 16,
       tablet: 24,
       desktop: 32,
@@ -243,7 +243,7 @@ class ResponsiveSpacing {
 
   /// 大きいスペーシング
   static double large(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 24,
       tablet: 40,
       desktop: 60,
@@ -252,7 +252,7 @@ class ResponsiveSpacing {
 
   /// 特大のスペーシング
   static double extraLarge(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 40,
       tablet: 60,
       desktop: 80,
@@ -266,7 +266,7 @@ class ResponsiveFontSize {
 
   /// 見出し（大）
   static double headlineLarge(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 24,
       tablet: 32,
       desktop: 40,
@@ -275,7 +275,7 @@ class ResponsiveFontSize {
 
   /// 見出し（中）
   static double headlineMedium(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 18,
       tablet: 24,
       desktop: 28,
@@ -284,7 +284,7 @@ class ResponsiveFontSize {
 
   /// 見出し（小）
   static double headlineSmall(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 14,
       tablet: 16,
       desktop: 20,
@@ -293,7 +293,7 @@ class ResponsiveFontSize {
 
   /// 本文
   static double body(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 10,
       tablet: 12,
       desktop: 14,
@@ -302,7 +302,7 @@ class ResponsiveFontSize {
 
   /// キャプション
   static double caption(DeviceType deviceType) {
-    return ResponsiveValue<double>(
+    return const ResponsiveValue<double>(
       mobile: 8,
       tablet: 10,
       desktop: 12,

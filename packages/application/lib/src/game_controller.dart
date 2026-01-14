@@ -1,7 +1,6 @@
+import 'package:tetris_application/src/services/tetromino_generator.dart';
+import 'package:tetris_application/src/usecases/usecases.dart';
 import 'package:tetris_domain/tetris_domain.dart';
-
-import 'services/tetromino_generator.dart';
-import 'usecases/usecases.dart';
 
 /// ゲーム全体を制御するコントローラー
 ///
@@ -21,30 +20,30 @@ class GameController {
     required RotationService rotationService,
     required LineClearService lineClearService,
     required ScoringService scoringService,
-  })  : _generator = generator,
-        _collisionService = collisionService,
-        _startGameUseCase = const StartGameUseCase(),
-        _moveTetrominoUseCase = MoveTetrominoUseCase(
-          collisionService: collisionService,
-        ),
-        _rotateTetrominoUseCase = RotateTetrominoUseCase(
-          rotationService: rotationService,
-        ),
-        _softDropUseCase = SoftDropUseCase(
-          collisionService: collisionService,
-          scoringService: scoringService,
-        ),
-        _hardDropUseCase = HardDropUseCase(
-          collisionService: collisionService,
-          scoringService: scoringService,
-        ),
-        _holdTetrominoUseCase = const HoldTetrominoUseCase(),
-        _pauseGameUseCase = const PauseGameUseCase(),
-        _gameTickUseCase = GameTickUseCase(
-          collisionService: collisionService,
-          lineClearService: lineClearService,
-          scoringService: scoringService,
-        );
+  }) : _generator = generator,
+       _collisionService = collisionService,
+       _startGameUseCase = const StartGameUseCase(),
+       _moveTetrominoUseCase = MoveTetrominoUseCase(
+         collisionService: collisionService,
+       ),
+       _rotateTetrominoUseCase = RotateTetrominoUseCase(
+         rotationService: rotationService,
+       ),
+       _softDropUseCase = SoftDropUseCase(
+         collisionService: collisionService,
+         scoringService: scoringService,
+       ),
+       _hardDropUseCase = HardDropUseCase(
+         collisionService: collisionService,
+         scoringService: scoringService,
+       ),
+       _holdTetrominoUseCase = const HoldTetrominoUseCase(),
+       _pauseGameUseCase = const PauseGameUseCase(),
+       _gameTickUseCase = GameTickUseCase(
+         collisionService: collisionService,
+         lineClearService: lineClearService,
+         scoringService: scoringService,
+       );
 
   final TetrominoGenerator _generator;
   final CollisionService _collisionService;
@@ -247,6 +246,8 @@ class GameController {
   /// テスト用: 状態を強制的に設定する
   ///
   /// 本番コードでは使用しないこと。
+  // テスト用メソッドのため、メソッド形式を維持
+  // ignore: use_setters_to_change_properties
   void forceState(GameState newState) {
     _state = newState;
   }

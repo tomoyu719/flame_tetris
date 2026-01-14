@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import 'tetromino_preview.dart';
+import 'package:tetris_presentation/src/widgets/tetromino_preview.dart';
 
 /// HOLDテトリミノを表示するパネル
 class HoldPanel extends StatelessWidget {
@@ -36,12 +36,13 @@ class HoldPanel extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             'HOLD',
             style: TextStyle(
-              color: canHold ? const Color(0xFF8888AA) : const Color(0xFF886666),
+              color: canHold
+                  ? const Color(0xFF8888AA)
+                  : const Color(0xFF886666),
               fontSize: 12,
               fontWeight: FontWeight.bold,
               letterSpacing: 2,

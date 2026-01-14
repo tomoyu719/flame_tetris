@@ -22,7 +22,7 @@ class ScoreRepositoryImpl implements ScoreRepository {
 
       final json = jsonDecode(jsonString) as Map<String, dynamic>;
       return HighScore.fromJson(json);
-    } catch (e) {
+    } on Exception {
       // JSONのパースに失敗した場合は空のハイスコアを返す
       return HighScore.empty();
     }
@@ -34,7 +34,7 @@ class ScoreRepositoryImpl implements ScoreRepository {
       final prefs = await SharedPreferences.getInstance();
       final jsonString = jsonEncode(highScore.toJson());
       return prefs.setString(_highScoreKey, jsonString);
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }
@@ -44,7 +44,7 @@ class ScoreRepositoryImpl implements ScoreRepository {
     try {
       final prefs = await SharedPreferences.getInstance();
       return prefs.remove(_highScoreKey);
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

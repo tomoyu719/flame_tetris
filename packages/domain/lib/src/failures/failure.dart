@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 /// 型安全なエラーハンドリングを実現する。
 @immutable
 abstract class Failure {
+  /// Failureを生成
   const Failure({this.message});
 
   /// エラーメッセージ（オプション）

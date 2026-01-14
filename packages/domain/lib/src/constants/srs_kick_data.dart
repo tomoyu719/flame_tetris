@@ -1,5 +1,6 @@
-import '../entities/position.dart';
-import '../enums/enums.dart';
+import 'package:meta/meta.dart';
+import 'package:tetris_domain/src/entities/position.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// SRS（Super Rotation System）の壁蹴りデータ
 ///
@@ -34,7 +35,7 @@ abstract final class SrsKickData {
   // JLSTZ共通の壁蹴りデータ
   static final Map<_KickKey, List<Position>> _jlstzKickData = {
     // 0 -> R (spawn -> clockwise)
-    _KickKey(RotationState.spawn, RotationState.clockwise): const [
+    const _KickKey(RotationState.spawn, RotationState.clockwise): const [
       Position(0, 0),
       Position(-1, 0),
       Position(-1, -1),
@@ -42,7 +43,7 @@ abstract final class SrsKickData {
       Position(-1, 2),
     ],
     // R -> 0 (clockwise -> spawn)
-    _KickKey(RotationState.clockwise, RotationState.spawn): const [
+    const _KickKey(RotationState.clockwise, RotationState.spawn): const [
       Position(0, 0),
       Position(1, 0),
       Position(1, 1),
@@ -50,7 +51,7 @@ abstract final class SrsKickData {
       Position(1, -2),
     ],
     // R -> 2 (clockwise -> inverted)
-    _KickKey(RotationState.clockwise, RotationState.inverted): const [
+    const _KickKey(RotationState.clockwise, RotationState.inverted): const [
       Position(0, 0),
       Position(1, 0),
       Position(1, 1),
@@ -58,7 +59,7 @@ abstract final class SrsKickData {
       Position(1, -2),
     ],
     // 2 -> R (inverted -> clockwise)
-    _KickKey(RotationState.inverted, RotationState.clockwise): const [
+    const _KickKey(RotationState.inverted, RotationState.clockwise): const [
       Position(0, 0),
       Position(-1, 0),
       Position(-1, -1),
@@ -66,7 +67,10 @@ abstract final class SrsKickData {
       Position(-1, 2),
     ],
     // 2 -> L (inverted -> counterClockwise)
-    _KickKey(RotationState.inverted, RotationState.counterClockwise): const [
+    const _KickKey(
+      RotationState.inverted,
+      RotationState.counterClockwise,
+    ): const [
       Position(0, 0),
       Position(1, 0),
       Position(1, -1),
@@ -74,7 +78,10 @@ abstract final class SrsKickData {
       Position(1, 2),
     ],
     // L -> 2 (counterClockwise -> inverted)
-    _KickKey(RotationState.counterClockwise, RotationState.inverted): const [
+    const _KickKey(
+      RotationState.counterClockwise,
+      RotationState.inverted,
+    ): const [
       Position(0, 0),
       Position(-1, 0),
       Position(-1, 1),
@@ -82,7 +89,7 @@ abstract final class SrsKickData {
       Position(-1, -2),
     ],
     // L -> 0 (counterClockwise -> spawn)
-    _KickKey(RotationState.counterClockwise, RotationState.spawn): const [
+    const _KickKey(RotationState.counterClockwise, RotationState.spawn): const [
       Position(0, 0),
       Position(-1, 0),
       Position(-1, 1),
@@ -90,7 +97,7 @@ abstract final class SrsKickData {
       Position(-1, -2),
     ],
     // 0 -> L (spawn -> counterClockwise)
-    _KickKey(RotationState.spawn, RotationState.counterClockwise): const [
+    const _KickKey(RotationState.spawn, RotationState.counterClockwise): const [
       Position(0, 0),
       Position(1, 0),
       Position(1, -1),
@@ -102,7 +109,7 @@ abstract final class SrsKickData {
   // I-テトリミノ専用の壁蹴りデータ
   static final Map<_KickKey, List<Position>> _iKickData = {
     // 0 -> R
-    _KickKey(RotationState.spawn, RotationState.clockwise): const [
+    const _KickKey(RotationState.spawn, RotationState.clockwise): const [
       Position(0, 0),
       Position(-2, 0),
       Position(1, 0),
@@ -110,7 +117,7 @@ abstract final class SrsKickData {
       Position(1, -2),
     ],
     // R -> 0
-    _KickKey(RotationState.clockwise, RotationState.spawn): const [
+    const _KickKey(RotationState.clockwise, RotationState.spawn): const [
       Position(0, 0),
       Position(2, 0),
       Position(-1, 0),
@@ -118,7 +125,7 @@ abstract final class SrsKickData {
       Position(-1, 2),
     ],
     // R -> 2
-    _KickKey(RotationState.clockwise, RotationState.inverted): const [
+    const _KickKey(RotationState.clockwise, RotationState.inverted): const [
       Position(0, 0),
       Position(-1, 0),
       Position(2, 0),
@@ -126,7 +133,7 @@ abstract final class SrsKickData {
       Position(2, 1),
     ],
     // 2 -> R
-    _KickKey(RotationState.inverted, RotationState.clockwise): const [
+    const _KickKey(RotationState.inverted, RotationState.clockwise): const [
       Position(0, 0),
       Position(1, 0),
       Position(-2, 0),
@@ -134,7 +141,10 @@ abstract final class SrsKickData {
       Position(-2, -1),
     ],
     // 2 -> L
-    _KickKey(RotationState.inverted, RotationState.counterClockwise): const [
+    const _KickKey(
+      RotationState.inverted,
+      RotationState.counterClockwise,
+    ): const [
       Position(0, 0),
       Position(2, 0),
       Position(-1, 0),
@@ -142,7 +152,10 @@ abstract final class SrsKickData {
       Position(-1, 2),
     ],
     // L -> 2
-    _KickKey(RotationState.counterClockwise, RotationState.inverted): const [
+    const _KickKey(
+      RotationState.counterClockwise,
+      RotationState.inverted,
+    ): const [
       Position(0, 0),
       Position(-2, 0),
       Position(1, 0),
@@ -150,7 +163,7 @@ abstract final class SrsKickData {
       Position(1, -2),
     ],
     // L -> 0
-    _KickKey(RotationState.counterClockwise, RotationState.spawn): const [
+    const _KickKey(RotationState.counterClockwise, RotationState.spawn): const [
       Position(0, 0),
       Position(1, 0),
       Position(-2, 0),
@@ -158,7 +171,7 @@ abstract final class SrsKickData {
       Position(-2, -1),
     ],
     // 0 -> L
-    _KickKey(RotationState.spawn, RotationState.counterClockwise): const [
+    const _KickKey(RotationState.spawn, RotationState.counterClockwise): const [
       Position(0, 0),
       Position(-1, 0),
       Position(2, 0),
@@ -169,6 +182,7 @@ abstract final class SrsKickData {
 }
 
 /// 壁蹴りテーブルのキー
+@immutable
 class _KickKey {
   const _KickKey(this.from, this.to);
   final RotationState from;

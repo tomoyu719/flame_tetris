@@ -1,6 +1,9 @@
+import 'package:meta/meta.dart';
+
 /// 一度に消去したライン数を表すValue Object
 ///
 /// 0〜4の範囲で、消去したライン数に応じた基本スコアを持つ
+@immutable
 class LinesCleared {
   /// 指定した値でLinesClearedを生成
   ///

@@ -112,8 +112,6 @@ class TetrominoGenerator {
 
   /// シャッフルされた7つのテトリミノを含むリストを作成
   List<TetrominoType> _createShuffledBag() {
-    final bag = List<TetrominoType>.from(TetrominoType.values);
-    bag.shuffle(_random);
-    return bag;
+    return List<TetrominoType>.from(TetrominoType.values)..shuffle(_random);
   }
 }

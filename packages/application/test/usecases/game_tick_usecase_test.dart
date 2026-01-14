@@ -8,7 +8,7 @@ void main() {
     late CollisionService collisionService;
     late LineClearService lineClearService;
     late ScoringService scoringService;
-    int nextTetrominoIndex = 0;
+    var nextTetrominoIndex = 0;
     final tetrominoSequence = [
       TetrominoType.t,
       TetrominoType.i,
@@ -16,7 +16,8 @@ void main() {
     ];
 
     Tetromino getNextTetromino() {
-      final type = tetrominoSequence[nextTetrominoIndex % tetrominoSequence.length];
+      final index = nextTetrominoIndex % tetrominoSequence.length;
+      final type = tetrominoSequence[index];
       nextTetrominoIndex++;
       return Tetromino.spawn(type);
     }
@@ -44,14 +45,17 @@ void main() {
     }) {
       return GameState(
         board: board ?? Board.empty(),
-        currentTetromino: currentTetromino ??
+        currentTetromino:
+            currentTetromino ??
             const Tetromino(
               type: TetrominoType.t,
               position: Position(4, 5),
               rotation: RotationState.spawn,
             ),
         heldTetromino: null,
-        nextQueue: nextQueue ?? const [TetrominoType.i, TetrominoType.o, TetrominoType.s],
+        nextQueue:
+            nextQueue ??
+            const [TetrominoType.i, TetrominoType.o, TetrominoType.s],
         score: score,
         level: level,
         linesCleared: linesCleared,
@@ -156,11 +160,18 @@ void main() {
           ),
         );
 
-        final result = useCase.execute(state, getNextTetromino, forceLock: true);
+        final result = useCase.execute(
+          state,
+          getNextTetromino,
+          forceLock: true,
+        );
 
         expect(result.isSuccess, isTrue);
         // ロック処理が実行された（新しいテトリミノがスポーン）
-        expect(result.state!.currentTetromino!.type, isNot(equals(TetrominoType.t)));
+        expect(
+          result.state!.currentTetromino!.type,
+          isNot(equals(TetrominoType.t)),
+        );
       });
     });
 
@@ -178,11 +189,18 @@ void main() {
           nextQueue: const [TetrominoType.i, TetrominoType.o, TetrominoType.s],
         );
 
-        final result = useCase.execute(state, getNextTetromino, forceLock: true);
+        final result = useCase.execute(
+          state,
+          getNextTetromino,
+          forceLock: true,
+        );
 
         expect(result.isSuccess, isTrue);
         expect(result.state!.status, equals(GameStatus.playing));
-        expect(result.state!.currentTetromino!.type, equals(TetrominoType.i));
+        expect(
+          result.state!.currentTetromino!.type,
+          equals(TetrominoType.i),
+        );
       });
     });
 

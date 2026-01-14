@@ -1,4 +1,4 @@
-import '../entities/high_score.dart';
+import 'package:tetris_domain/src/entities/high_score.dart';
 
 /// スコアの永続化を担当するリポジトリのインターフェース
 ///

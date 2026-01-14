@@ -25,7 +25,6 @@ class RotationServiceImpl implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 
@@ -65,7 +64,6 @@ class RotationServiceImpl implements RotationService {
       return RotationResult(
         tetromino: rotated,
         success: true,
-        kickIndex: 0,
       );
     }
 

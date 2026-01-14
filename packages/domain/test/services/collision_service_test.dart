@@ -125,7 +125,10 @@ void main() {
           rotation: RotationState.spawn,
         );
 
-        expect(service.canMove(tetromino, emptyBoard, MoveDirection.left), isTrue);
+        expect(
+          service.canMove(tetromino, emptyBoard, MoveDirection.left),
+          isTrue,
+        );
       });
 
       test('空のボードで右に移動可能', () {
@@ -135,7 +138,10 @@ void main() {
           rotation: RotationState.spawn,
         );
 
-        expect(service.canMove(tetromino, emptyBoard, MoveDirection.right), isTrue);
+        expect(
+          service.canMove(tetromino, emptyBoard, MoveDirection.right),
+          isTrue,
+        );
       });
 
       test('空のボードで下に移動可能', () {
@@ -145,7 +151,10 @@ void main() {
           rotation: RotationState.spawn,
         );
 
-        expect(service.canMove(tetromino, emptyBoard, MoveDirection.down), isTrue);
+        expect(
+          service.canMove(tetromino, emptyBoard, MoveDirection.down),
+          isTrue,
+        );
       });
 
       test('左端では左に移動不可', () {
@@ -155,7 +164,10 @@ void main() {
           rotation: RotationState.spawn,
         );
 
-        expect(service.canMove(tetromino, emptyBoard, MoveDirection.left), isFalse);
+        expect(
+          service.canMove(tetromino, emptyBoard, MoveDirection.left),
+          isFalse,
+        );
       });
 
       test('底では下に移動不可', () {
@@ -165,7 +177,10 @@ void main() {
           rotation: RotationState.spawn,
         );
 
-        expect(service.canMove(tetromino, emptyBoard, MoveDirection.down), isFalse);
+        expect(
+          service.canMove(tetromino, emptyBoard, MoveDirection.down),
+          isFalse,
+        );
       });
     });
 
@@ -206,7 +221,10 @@ void main() {
       });
 
       test('他のブロックの上に達したテトリミノはロック可能', () {
-        final board = emptyBoard.setCell(const Position(5, 10), TetrominoType.i);
+        final board = emptyBoard.setCell(
+          const Position(5, 10),
+          TetrominoType.i,
+        );
         const tetromino = Tetromino(
           type: TetrominoType.t,
           position: Position(4, 8),

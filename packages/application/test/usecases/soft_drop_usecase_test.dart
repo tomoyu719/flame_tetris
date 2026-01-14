@@ -25,7 +25,8 @@ void main() {
     }) {
       return GameState(
         board: board ?? Board.empty(),
-        currentTetromino: currentTetromino ??
+        currentTetromino:
+            currentTetromino ??
             const Tetromino(
               type: TetrominoType.t,
               position: Position(4, 5),

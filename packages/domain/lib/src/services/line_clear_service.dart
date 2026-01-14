@@ -1,17 +1,9 @@
-import '../entities/entities.dart';
-import '../value_objects/value_objects.dart';
+import 'package:tetris_domain/src/entities/entities.dart';
+import 'package:tetris_domain/src/value_objects/value_objects.dart';
 
 /// ライン消去結果を表すクラス
 class LineClearResult {
-  /// 消去後のボード
-  final Board board;
-
-  /// 消去されたライン数
-  final LinesCleared linesCleared;
-
-  /// 消去されたラインのインデックス（上から）
-  final List<int> clearedLineIndices;
-
+  /// LineClearResultを生成
   const LineClearResult({
     required this.board,
     required this.linesCleared,
@@ -26,6 +18,15 @@ class LineClearResult {
       clearedLineIndices: const [],
     );
   }
+
+  /// 消去後のボード
+  final Board board;
+
+  /// 消去されたライン数
+  final LinesCleared linesCleared;
+
+  /// 消去されたラインのインデックス（上から）
+  final List<int> clearedLineIndices;
 }
 
 /// ライン消去サービスのインターフェース

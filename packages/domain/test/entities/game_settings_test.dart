@@ -30,14 +30,14 @@ void main() {
       test('音量は0.0-1.0の範囲にクランプされる', () {
         final settingsLow = GameSettings(
           soundEffectVolume: -0.5,
-          bgmVolume: -1.0,
+          bgmVolume: -1,
         );
         expect(settingsLow.soundEffectVolume, 0.0);
         expect(settingsLow.bgmVolume, 0.0);
 
         final settingsHigh = GameSettings(
           soundEffectVolume: 1.5,
-          bgmVolume: 2.0,
+          bgmVolume: 2,
         );
         expect(settingsHigh.soundEffectVolume, 1.0);
         expect(settingsHigh.bgmVolume, 1.0);
@@ -171,15 +171,11 @@ void main() {
       test('同じ値のGameSettingsは等しい', () {
         final settings1 = GameSettings(
           soundEffectVolume: 0.5,
-          bgmVolume: 0.5,
-          showGhost: true,
-          isMuted: false,
+          bgmVolume: 0.3,
         );
         final settings2 = GameSettings(
           soundEffectVolume: 0.5,
-          bgmVolume: 0.5,
-          showGhost: true,
-          isMuted: false,
+          bgmVolume: 0.3,
         );
 
         expect(settings1, equals(settings2));

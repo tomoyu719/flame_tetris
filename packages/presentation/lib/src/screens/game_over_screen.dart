@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../l10n/tetris_l10n.dart';
-import '../router/app_router.dart';
+import 'package:tetris_presentation/src/l10n/tetris_l10n.dart';
+import 'package:tetris_presentation/src/router/app_router.dart';
 
 /// ゲームオーバー画面
 ///

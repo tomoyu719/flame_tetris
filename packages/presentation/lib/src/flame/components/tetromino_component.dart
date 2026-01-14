@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 
-import 'block_component.dart';
+import 'package:tetris_presentation/src/flame/components/block_component.dart';
 
 /// テトリミノを描画するコンポーネント
 ///
@@ -17,9 +19,9 @@ class TetrominoComponent extends PositionComponent {
     required Tetromino tetromino,
     required double cellSize,
     bool isGhost = false,
-  })  : _tetromino = tetromino,
-        _cellSize = cellSize,
-        _isGhost = isGhost;
+  }) : _tetromino = tetromino,
+       _cellSize = cellSize,
+       _isGhost = isGhost;
 
   Tetromino _tetromino;
   final double _cellSize;
@@ -42,19 +44,26 @@ class TetrominoComponent extends PositionComponent {
 
   /// ブロックを生成して配置
   void _createBlocks() {
-    final shape = TetrominoShapes.getShape(_tetromino.type, _tetromino.rotation);
+    final shape = TetrominoShapes.getShape(
+      _tetromino.type,
+      _tetromino.rotation,
+    );
 
     for (var i = 0; i < shape.length; i++) {
       final offset = shape[i];
-      final block = BlockComponent(
-        type: _tetromino.type,
-        cellSize: _cellSize,
-        isGhost: _isGhost,
-      )..position = Vector2(
-          offset.x * _cellSize,
-          offset.y * _cellSize,
-        );
+      final block =
+          BlockComponent(
+              type: _tetromino.type,
+              cellSize: _cellSize,
+              isGhost: _isGhost,
+            )
+            ..position = Vector2(
+              offset.x * _cellSize,
+              offset.y * _cellSize,
+            );
       _blockPool.add(block);
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(block);
     }
 
@@ -69,12 +78,15 @@ class TetrominoComponent extends PositionComponent {
   void updateTetromino(Tetromino newTetromino) {
     _tetromino = newTetromino;
 
-    final shape =
-        TetrominoShapes.getShape(newTetromino.type, newTetromino.rotation);
+    final shape = TetrominoShapes.getShape(
+      newTetromino.type,
+      newTetromino.rotation,
+    );
 
     // タイプまたは回転が変わった場合のみブロックを更新
     final needsBlockUpdate =
-        _lastType != newTetromino.type || _lastRotation != newTetromino.rotation;
+        _lastType != newTetromino.type ||
+        _lastRotation != newTetromino.rotation;
 
     if (!needsBlockUpdate) {
       return; // 位置のみの変更は親コンポーネントの位置更新で対応済み
@@ -105,15 +117,19 @@ class TetrominoComponent extends PositionComponent {
 
     // 新しいブロックを生成
     for (final offset in shape) {
-      final block = BlockComponent(
-        type: newTetromino.type,
-        cellSize: _cellSize,
-        isGhost: _isGhost,
-      )..position = Vector2(
-          offset.x * _cellSize,
-          offset.y * _cellSize,
-        );
+      final block =
+          BlockComponent(
+              type: newTetromino.type,
+              cellSize: _cellSize,
+              isGhost: _isGhost,
+            )
+            ..position = Vector2(
+              offset.x * _cellSize,
+              offset.y * _cellSize,
+            );
       _blockPool.add(block);
+      // Flame's add() returns FutureOr<void>, fire-and-forget is intentional.
+      // ignore: discarded_futures
       add(block);
     }
   }

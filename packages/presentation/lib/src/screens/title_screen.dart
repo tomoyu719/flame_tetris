@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../l10n/tetris_l10n.dart';
-import '../router/app_router.dart';
-import '../widgets/high_score_dialog.dart';
-import '../widgets/responsive_layout.dart';
+import 'package:tetris_presentation/src/l10n/tetris_l10n.dart';
+import 'package:tetris_presentation/src/router/app_router.dart';
+import 'package:tetris_presentation/src/widgets/high_score_dialog.dart';
+import 'package:tetris_presentation/src/widgets/responsive_layout.dart';
 
 /// タイトル画面
 ///
@@ -21,8 +23,9 @@ class TitleScreen extends ConsumerWidget {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final deviceType =
-                ResponsiveLayout.getDeviceType(constraints.maxWidth);
+            final deviceType = ResponsiveLayout.getDeviceType(
+              constraints.maxWidth,
+            );
 
             return Center(
               child: SingleChildScrollView(
@@ -88,17 +91,19 @@ class _TitleContent extends StatelessWidget {
         Text(
           l10n.copyright,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontSize: ResponsiveFontSize.caption(deviceType),
-              ),
+            fontSize: ResponsiveFontSize.caption(deviceType),
+          ),
         ),
       ],
     );
   }
 
   void _showHighScoreDialog(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (context) => const HighScoreDialog(),
+    unawaited(
+      showDialog<void>(
+        context: context,
+        builder: (context) => const HighScoreDialog(),
+      ),
     );
   }
 }

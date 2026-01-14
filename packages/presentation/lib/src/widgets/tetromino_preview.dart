@@ -78,8 +78,9 @@ class _TetrominoPainter extends CustomPainter {
         cellSize - 2,
       );
 
-      canvas.drawRect(rect, fillPaint);
-      canvas.drawRect(rect, borderPaint);
+      canvas
+        ..drawRect(rect, fillPaint)
+        ..drawRect(rect, borderPaint);
     }
   }
 

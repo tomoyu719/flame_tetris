@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import '../enums/enums.dart';
-import 'position.dart';
+import 'package:tetris_domain/src/entities/position.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// テトリミノを表すイミュータブルなクラス
 ///

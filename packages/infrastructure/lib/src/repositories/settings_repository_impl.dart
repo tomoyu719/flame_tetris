@@ -25,7 +25,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
       final json = jsonDecode(jsonString) as Map<String, dynamic>;
       return GameSettings.fromJson(json);
-    } catch (e) {
+    } on Exception {
       // JSONパースエラーなどの場合はデフォルト値を返す
       return GameSettings();
     }
@@ -37,7 +37,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       final prefs = await SharedPreferences.getInstance();
       final jsonString = jsonEncode(settings.toJson());
       return prefs.setString(_settingsKey, jsonString);
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }
@@ -54,7 +54,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
       final json = jsonDecode(jsonString) as Map<String, dynamic>;
       return KeyBindings.fromJson(json);
-    } catch (e) {
+    } on Exception {
       // JSONパースエラーなどの場合はデフォルト値を返す
       return KeyBindings();
     }
@@ -66,7 +66,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       final prefs = await SharedPreferences.getInstance();
       final jsonString = jsonEncode(bindings.toJson());
       return prefs.setString(_keyBindingsKey, jsonString);
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }
@@ -78,7 +78,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await prefs.remove(_settingsKey);
       await prefs.remove(_keyBindingsKey);
       return true;
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

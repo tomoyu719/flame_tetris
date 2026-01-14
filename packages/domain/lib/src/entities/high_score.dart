@@ -11,14 +11,14 @@ class HighScore {
   /// [level]: 到達レベル（1以上）
   /// [linesCleared]: 消去ライン数（0以上）
   /// [achievedAt]: 達成日時
-  HighScore({
+  const HighScore({
     required this.score,
     required this.level,
     required this.linesCleared,
     required this.achievedAt,
-  })  : assert(score >= 0, 'スコアは0以上である必要があります'),
-        assert(level >= 1, 'レベルは1以上である必要があります'),
-        assert(linesCleared >= 0, 'ライン数は0以上である必要があります');
+  }) : assert(score >= 0, 'スコアは0以上である必要があります'),
+       assert(level >= 1, 'レベルは1以上である必要があります'),
+       assert(linesCleared >= 0, 'ライン数は0以上である必要があります');
 
   /// 空のハイスコアを生成
   ///

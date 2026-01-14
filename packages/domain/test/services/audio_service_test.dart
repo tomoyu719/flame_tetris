@@ -45,8 +45,9 @@ void main() {
     });
 
     test('効果音を再生できる', () {
-      audioService.playSoundEffect(GameSoundEffect.move);
-      audioService.playSoundEffect(GameSoundEffect.rotate);
+      audioService
+        ..playSoundEffect(GameSoundEffect.move)
+        ..playSoundEffect(GameSoundEffect.rotate);
 
       expect(audioService.playedEffects, hasLength(2));
       expect(audioService.playedEffects[0], GameSoundEffect.move);
@@ -54,8 +55,9 @@ void main() {
     });
 
     test('ミュート時は効果音が再生されない', () {
-      audioService.mute();
-      audioService.playSoundEffect(GameSoundEffect.move);
+      audioService
+        ..mute()
+        ..playSoundEffect(GameSoundEffect.move);
 
       expect(audioService.playedEffects, isEmpty);
     });
@@ -103,9 +105,9 @@ void main() {
     });
 
     test('BGMを一時停止・再開できる', () {
-      audioService.playBgm();
-
-      audioService.pauseBgm();
+      audioService
+        ..playBgm()
+        ..pauseBgm();
       expect(audioService.bgmPaused, isTrue);
 
       audioService.resumeBgm();
@@ -139,8 +141,9 @@ void main() {
     });
 
     test('dispose後はBGMが停止する', () {
-      audioService.playBgm();
-      audioService.dispose();
+      audioService
+        ..playBgm()
+        ..dispose();
 
       expect(audioService.bgmPlaying, isFalse);
     });
@@ -153,7 +156,7 @@ class MockAudioService implements AudioService {
   bool bgmPlaying = false;
   bool bgmPaused = false;
   BgmType? currentBgmType;
-  double _seVolume = 1.0;
+  double _seVolume = 1;
   double _bgmVolume = 0.5;
   bool _muted = false;
 

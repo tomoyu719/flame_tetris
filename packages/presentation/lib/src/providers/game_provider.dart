@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tetris_application/tetris_application.dart';
 import 'package:tetris_infrastructure/tetris_infrastructure.dart';
 
-import '../flame/tetris_game.dart';
-
 /// ゲームコントローラーを提供するProvider
 ///
 /// GameControllerを生成し、必要なサービスを注入する。
@@ -29,22 +27,6 @@ final gameControllerProvider = Provider<GameController>((ref) {
     lineClearService: lineClearService,
     scoringService: scoringService,
   );
-});
-
-/// TetrisGameを提供するProvider
-///
-/// 画面ごとに新しいゲームインスタンスを生成するため、
-/// autoDisposeを使用する。
-final tetrisGameProvider = Provider.autoDispose<TetrisGame>((ref) {
-  final controller = ref.watch(gameControllerProvider);
-
-  final game = TetrisGame(
-    controller: controller,
-    cellSize: 30.0,
-    autoStart: true, // onLoad完了時に自動的にゲームを開始
-  );
-
-  return game;
 });
 
 /// ゲーム状態を監視するためのStateNotifier
@@ -126,9 +108,3 @@ class GameStateData {
     );
   }
 }
-
-/// ゲーム状態Provider
-final gameStateProvider =
-    StateNotifierProvider<GameStateNotifier, GameStateData>(
-  (ref) => GameStateNotifier(),
-);

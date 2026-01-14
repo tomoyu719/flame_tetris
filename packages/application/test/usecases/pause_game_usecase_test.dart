@@ -32,7 +32,7 @@ void main() {
 
     group('pause', () {
       test('プレイ中から一時停止に変更できる', () {
-        final state = createGameState(status: GameStatus.playing);
+        final state = createGameState();
 
         final result = useCase.pause(state);
 
@@ -41,7 +41,7 @@ void main() {
       });
 
       test('他の状態は保持される', () {
-        final state = createGameState(status: GameStatus.playing);
+        final state = createGameState();
 
         final result = useCase.pause(state);
 
@@ -80,7 +80,7 @@ void main() {
       });
 
       test('プレイ中の場合は失敗', () {
-        final state = createGameState(status: GameStatus.playing);
+        final state = createGameState();
 
         final result = useCase.resume(state);
 
@@ -100,7 +100,7 @@ void main() {
 
     group('toggle', () {
       test('プレイ中の場合は一時停止になる', () {
-        final state = createGameState(status: GameStatus.playing);
+        final state = createGameState();
 
         final result = useCase.toggle(state);
 

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import '../enums/enums.dart';
-import 'position.dart';
+import 'package:tetris_domain/src/entities/position.dart';
+import 'package:tetris_domain/src/enums/enums.dart';
 
 /// テトリスのゲームボードを表すイミュータブルなクラス
 ///
@@ -105,7 +105,7 @@ class Board {
 
   /// グリッドのディープコピーを作成
   List<List<TetrominoType?>> _copyGrid() {
-    return _grid.map((row) => List<TetrominoType?>.from(row)).toList();
+    return _grid.map(List<TetrominoType?>.from).toList();
   }
 
   @override

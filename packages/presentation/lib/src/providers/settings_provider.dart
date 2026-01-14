@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tetris_domain/tetris_domain.dart';
 import 'package:tetris_infrastructure/tetris_infrastructure.dart';
@@ -11,7 +13,7 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
 class GameSettingsNotifier extends StateNotifier<AsyncValue<GameSettings>> {
   /// GameSettingsNotifierを生成
   GameSettingsNotifier(this._repository) : super(const AsyncValue.loading()) {
-    _loadSettings();
+    unawaited(_loadSettings());
   }
 
   final SettingsRepository _repository;
@@ -21,7 +23,7 @@ class GameSettingsNotifier extends StateNotifier<AsyncValue<GameSettings>> {
     try {
       final settings = await _repository.getSettings();
       state = AsyncValue.data(settings);
-    } catch (e, st) {
+    } on Object catch (e, st) {
       state = AsyncValue.error(e, st);
     }
   }
@@ -47,14 +49,14 @@ class GameSettingsNotifier extends StateNotifier<AsyncValue<GameSettings>> {
   }
 
   /// ゴースト表示を更新
-  Future<void> updateShowGhost(bool show) async {
+  Future<void> updateShowGhost({required bool show}) async {
     final current = state.valueOrNull ?? GameSettings();
     final updated = current.copyWith(showGhost: show);
     await updateSettings(updated);
   }
 
   /// ミュート状態を更新
-  Future<void> updateIsMuted(bool muted) async {
+  Future<void> updateIsMuted({required bool muted}) async {
     final current = state.valueOrNull ?? GameSettings();
     final updated = current.copyWith(isMuted: muted);
     await updateSettings(updated);
@@ -70,8 +72,8 @@ class GameSettingsNotifier extends StateNotifier<AsyncValue<GameSettings>> {
 /// GameSettings Provider
 final gameSettingsProvider =
     StateNotifierProvider<GameSettingsNotifier, AsyncValue<GameSettings>>(
-  (ref) {
-    final repository = ref.watch(settingsRepositoryProvider);
-    return GameSettingsNotifier(repository);
-  },
-);
+      (ref) {
+        final repository = ref.watch(settingsRepositoryProvider);
+        return GameSettingsNotifier(repository);
+      },
+    );
