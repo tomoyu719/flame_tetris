@@ -1,6 +1,6 @@
 # Flame Tetris - 実行計画（TODO）
 
-> 最終更新: 2026-01-14 (Phase 1 完了)
+> 最終更新: 2026-01-14 (Phase 2 完了)
 
 ## 概要
 
@@ -189,48 +189,48 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.1.1 | 🔴 HighScore テスト | `packages/domain/test/entities/high_score_test.dart` | [ ] |
-| 2.1.2 | 🟢 HighScore 実装 | `packages/domain/lib/src/entities/high_score.dart` | [ ] |
-| 2.1.3 | ScoreRepository interface | `packages/domain/lib/src/repositories/score_repository.dart` | [ ] |
+| 2.1.1 | 🔴 HighScore テスト | `packages/domain/test/entities/high_score_test.dart` | [x] |
+| 2.1.2 | 🟢 HighScore 実装 | `packages/domain/lib/src/entities/high_score.dart` | [x] |
+| 2.1.3 | ScoreRepository interface | `packages/domain/lib/src/repositories/score_repository.dart` | [x] |
 
 ### 2.2 Infrastructure層 - Repository
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.2.1 | 🔴 ScoreRepositoryImpl テスト | `packages/infrastructure/test/repositories/score_repository_impl_test.dart` | [ ] |
-| 2.2.2 | 🟢 ScoreRepositoryImpl 実装（SharedPreferences） | `packages/infrastructure/lib/src/repositories/score_repository_impl.dart` | [ ] |
+| 2.2.1 | 🔴 ScoreRepositoryImpl テスト | `packages/infrastructure/test/repositories/score_repository_impl_test.dart` | [x] |
+| 2.2.2 | 🟢 ScoreRepositoryImpl 実装（SharedPreferences） | `packages/infrastructure/lib/src/repositories/score_repository_impl.dart` | [x] |
 
 ### 2.3 Application層 - Score UseCases
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.3.1 | 🔴 GetHighScoreUseCase テスト | `packages/application/test/usecases/get_high_score_usecase_test.dart` | [ ] |
-| 2.3.2 | 🟢 GetHighScoreUseCase 実装 | `packages/application/lib/src/usecases/get_high_score_usecase.dart` | [ ] |
-| 2.3.3 | 🔴 SaveHighScoreUseCase テスト | `packages/application/test/usecases/save_high_score_usecase_test.dart` | [ ] |
-| 2.3.4 | 🟢 SaveHighScoreUseCase 実装 | `packages/application/lib/src/usecases/save_high_score_usecase.dart` | [ ] |
+| 2.3.1 | 🔴 GetHighScoreUseCase テスト | `packages/application/test/usecases/get_high_score_usecase_test.dart` | [x] |
+| 2.3.2 | 🟢 GetHighScoreUseCase 実装 | `packages/application/lib/src/usecases/get_high_score_usecase.dart` | [x] |
+| 2.3.3 | 🔴 SaveHighScoreUseCase テスト | `packages/application/test/usecases/save_high_score_usecase_test.dart` | [x] |
+| 2.3.4 | 🟢 SaveHighScoreUseCase 実装 | `packages/application/lib/src/usecases/save_high_score_usecase.dart` | [x] |
 
 ### 2.4 Presentation層 - Router
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.4.1 | AppRouter（go_router設定） | `packages/presentation/lib/src/router/app_router.dart` | [ ] |
-| 2.4.2 | router.dart barrel更新 | `packages/presentation/lib/src/router/router.dart` | [ ] |
+| 2.4.1 | AppRouter（go_router設定） | `packages/presentation/lib/src/router/app_router.dart` | [x] |
+| 2.4.2 | router.dart barrel更新 | `packages/presentation/lib/src/router/router.dart` | [x] |
 
 ### 2.5 Presentation層 - 画面
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.5.1 | TitleScreen（START, SETTINGS, HIGH SCORE） | `packages/presentation/lib/src/screens/title_screen.dart` | [ ] |
-| 2.5.2 | GameOverScreen（スコア表示, RETRY, GO TITLE） | `packages/presentation/lib/src/screens/game_over_screen.dart` | [ ] |
-| 2.5.3 | PauseOverlay（RESUME, QUIT） | `packages/presentation/lib/src/widgets/pause_overlay.dart` | [ ] |
-| 2.5.4 | HighScoreDialog（ハイスコア表示） | `packages/presentation/lib/src/widgets/high_score_dialog.dart` | [ ] |
+| 2.5.1 | TitleScreen（START, SETTINGS, HIGH SCORE） | `packages/presentation/lib/src/screens/title_screen.dart` | [x] |
+| 2.5.2 | GameOverScreen（スコア表示, RETRY, GO TITLE） | `packages/presentation/lib/src/screens/game_over_screen.dart` | [x] |
+| 2.5.3 | PauseOverlay（RESUME, QUIT） | `packages/presentation/lib/src/widgets/pause_overlay.dart` | [x] |
+| 2.5.4 | HighScoreDialog（ハイスコア表示） | `packages/presentation/lib/src/widgets/high_score_dialog.dart` | [x] |
 
 ### 2.6 統合
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 2.6.1 | main.dart更新（Router適用） | `lib/main.dart` | [ ] |
-| 2.6.2 | Phase 2 動作確認 | - | [ ] |
+| 2.6.1 | main.dart更新（Router適用） | `lib/main.dart` | [x] |
+| 2.6.2 | Phase 2 動作確認 | - | [x] |
 
 ---
 
@@ -372,19 +372,19 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 | Phase | タスク数 | 完了 | 進捗率 |
 |-------|----------|------|--------|
 | Phase 1: コアゲーム | 60 | 60 | 100% |
-| Phase 2: 基本機能 | 14 | 0 | 0% |
+| Phase 2: 基本機能 | 14 | 14 | 100% |
 | Phase 3: 拡張機能 | 22 | 0 | 0% |
 | Phase 4: 仕上げ | 17 | 0 | 0% |
-| **合計** | **113** | **60** | **53%** |
+| **合計** | **113** | **74** | **65%** |
 
 ---
 
 ## 次のアクション
 
 1. [x] ~~Phase 1 完了（コアゲーム）~~
-2. [ ] Phase 2.1 から開始（HighScore Entity）
-3. [ ] ScoreRepository インターフェース定義
-4. [ ] タイトル画面・ゲームオーバー画面の実装
+2. [x] ~~Phase 2 完了（基本機能）~~
+3. [ ] Phase 3.1 から開始（GameSettings Entity）
+4. [ ] 設定画面・オーディオ機能の実装
 
 ---
 
