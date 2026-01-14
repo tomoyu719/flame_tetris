@@ -61,9 +61,10 @@ class TetrisApp extends ConsumerWidget {
       routerConfig: router,
       builder: (context, child) {
         final appL10n = AppLocalizations.of(context);
-        return TetrisL10nProvider(
-          l10n: appL10n != null
-              ? TetrisL10n(
+        return ResponsiveLayout(
+          child: TetrisL10nProvider(
+            l10n: appL10n != null
+                ? TetrisL10n(
                   appTitle: appL10n.appTitle,
                   titleTetris: appL10n.titleTetris,
                   titleSubtitle: appL10n.titleSubtitle,
@@ -113,8 +114,9 @@ class TetrisApp extends ConsumerWidget {
                   settingsLanguageEnglish: appL10n.settingsLanguageEnglish,
                   settingsLanguageJapanese: appL10n.settingsLanguageJapanese,
                 )
-              : const TetrisL10n(),
-          child: child ?? const SizedBox.shrink(),
+                : const TetrisL10n(),
+            child: child ?? const SizedBox.shrink(),
+          ),
         );
       },
     );

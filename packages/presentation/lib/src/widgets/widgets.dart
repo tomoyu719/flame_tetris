@@ -4,6 +4,7 @@ export 'hold_panel.dart';
 export 'mobile_controls.dart';
 export 'next_panel.dart';
 export 'pause_overlay.dart';
+export 'responsive_layout.dart';
 export 'score_panel.dart';
 export 'tetromino_preview.dart';
 export 'toggle_setting.dart';

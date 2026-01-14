@@ -5,6 +5,7 @@ import 'package:tetris_domain/tetris_domain.dart';
 import '../l10n/tetris_l10n.dart';
 import '../providers/settings_provider.dart';
 import '../router/app_router.dart';
+import '../widgets/responsive_layout.dart';
 import '../widgets/toggle_setting.dart';
 import '../widgets/volume_slider.dart';
 
@@ -39,18 +40,22 @@ class SettingsScreen extends ConsumerWidget {
         centerTitle: true,
       ),
       body: settingsAsync.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(color: Colors.cyan),
+        loading: () => Center(
+          child: CircularProgressIndicator(color: theme.colorScheme.primary),
         ),
         error: (error, stack) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, color: Colors.red, size: 48),
+              Icon(
+                Icons.error_outline,
+                color: theme.colorScheme.error,
+                size: 48,
+              ),
               const SizedBox(height: 16),
               Text(
                 l10n.errorLoadSettings,
-                style: TextStyle(color: Colors.grey[400]),
+                style: theme.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -61,7 +66,17 @@ class SettingsScreen extends ConsumerWidget {
             ],
           ),
         ),
-        data: (settings) => _SettingsContent(settings: settings, l10n: l10n),
+        data: (settings) => LayoutBuilder(
+          builder: (context, constraints) {
+            final deviceType =
+                ResponsiveLayout.getDeviceType(constraints.maxWidth);
+            return _SettingsContent(
+              settings: settings,
+              l10n: l10n,
+              deviceType: deviceType,
+            );
+          },
+        ),
       ),
     );
   }
@@ -69,87 +84,114 @@ class SettingsScreen extends ConsumerWidget {
 
 /// 設定コンテンツ
 class _SettingsContent extends ConsumerWidget {
-  const _SettingsContent({required this.settings, required this.l10n});
+  const _SettingsContent({
+    required this.settings,
+    required this.l10n,
+    required this.deviceType,
+  });
 
   final GameSettings settings;
   final TetrisL10n l10n;
+  final DeviceType deviceType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      padding: const EdgeInsets.all(24),
-      children: [
-        // オーディオセクション
-        _buildSectionHeader(context, l10n.settingsAudio),
-        const SizedBox(height: 16),
+    final padding = ResponsiveSpacing.medium(deviceType);
+    final sectionSpacing = ResponsiveSpacing.large(deviceType);
+    final maxContentWidth = _getMaxContentWidth();
 
-        VolumeSlider(
-          label: l10n.settingsBgmVolume,
-          value: settings.bgmVolume,
-          onChanged: (value) {
-            ref.read(gameSettingsProvider.notifier).updateBgmVolume(value);
-          },
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: maxContentWidth),
+        child: ListView(
+          padding: EdgeInsets.all(padding),
+          children: [
+            // オーディオセクション
+            _buildSectionHeader(context, l10n.settingsAudio),
+            SizedBox(height: padding * 0.5),
+
+            VolumeSlider(
+              label: l10n.settingsBgmVolume,
+              value: settings.bgmVolume,
+              onChanged: (value) {
+                ref.read(gameSettingsProvider.notifier).updateBgmVolume(value);
+              },
+            ),
+
+            VolumeSlider(
+              label: l10n.settingsSeVolume,
+              value: settings.soundEffectVolume,
+              onChanged: (value) {
+                ref
+                    .read(gameSettingsProvider.notifier)
+                    .updateSoundEffectVolume(value);
+              },
+            ),
+
+            ToggleSetting(
+              label: l10n.settingsMuteAll,
+              value: settings.isMuted,
+              onChanged: (value) {
+                ref.read(gameSettingsProvider.notifier).updateIsMuted(value);
+              },
+            ),
+
+            SizedBox(height: sectionSpacing),
+
+            // ゲームプレイセクション
+            _buildSectionHeader(context, l10n.settingsGameplay),
+            SizedBox(height: padding * 0.5),
+
+            ToggleSetting(
+              label: l10n.settingsGhostPiece,
+              value: settings.showGhost,
+              onChanged: (value) {
+                ref.read(gameSettingsProvider.notifier).updateShowGhost(value);
+              },
+            ),
+
+            SizedBox(height: sectionSpacing * 1.5),
+
+            // リセットボタン
+            _buildResetButton(context, ref),
+
+            SizedBox(height: padding),
+
+            // バージョン情報
+            Center(
+              child: Text(
+                l10n.settingsVersion,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: ResponsiveFontSize.caption(deviceType),
+                    ),
+              ),
+            ),
+          ],
         ),
-
-        VolumeSlider(
-          label: l10n.settingsSeVolume,
-          value: settings.soundEffectVolume,
-          onChanged: (value) {
-            ref
-                .read(gameSettingsProvider.notifier)
-                .updateSoundEffectVolume(value);
-          },
-        ),
-
-        ToggleSetting(
-          label: l10n.settingsMuteAll,
-          value: settings.isMuted,
-          onChanged: (value) {
-            ref.read(gameSettingsProvider.notifier).updateIsMuted(value);
-          },
-        ),
-
-        const SizedBox(height: 32),
-
-        // ゲームプレイセクション
-        _buildSectionHeader(context, l10n.settingsGameplay),
-        const SizedBox(height: 16),
-
-        ToggleSetting(
-          label: l10n.settingsGhostPiece,
-          value: settings.showGhost,
-          onChanged: (value) {
-            ref.read(gameSettingsProvider.notifier).updateShowGhost(value);
-          },
-        ),
-
-        const SizedBox(height: 48),
-
-        // リセットボタン
-        _buildResetButton(context, ref),
-
-        const SizedBox(height: 24),
-
-        // バージョン情報
-        Center(
-          child: Text(
-            l10n.settingsVersion,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 8,
-                ),
-          ),
-        ),
-      ],
+      ),
     );
+  }
+
+  double _getMaxContentWidth() {
+    switch (deviceType) {
+      case DeviceType.mobile:
+        return double.infinity;
+      case DeviceType.tablet:
+        return 500;
+      case DeviceType.desktop:
+        return 600;
+    }
   }
 
   Widget _buildSectionHeader(BuildContext context, String title) {
     final theme = Theme.of(context);
+    final fontSize = ResponsiveFontSize.body(deviceType);
+
     return Row(
       children: [
         Container(
           width: 4,
-          height: 16,
+          height: fontSize + 4,
           decoration: BoxDecoration(
             color: theme.colorScheme.primary,
             borderRadius: BorderRadius.circular(2),
@@ -160,7 +202,7 @@ class _SettingsContent extends ConsumerWidget {
           title,
           style: theme.textTheme.titleMedium?.copyWith(
             color: theme.colorScheme.primary,
-            fontSize: 12,
+            fontSize: fontSize,
             letterSpacing: 1,
           ),
         ),
@@ -169,26 +211,41 @@ class _SettingsContent extends ConsumerWidget {
   }
 
   Widget _buildResetButton(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final buttonWidth = _getResetButtonWidth();
+
     return Center(
       child: SizedBox(
-        width: 200,
+        width: buttonWidth,
         child: OutlinedButton(
           onPressed: () => _showResetConfirmDialog(context, ref),
           style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.red,
-            side: const BorderSide(color: Colors.red),
+            foregroundColor: theme.colorScheme.error,
+            side: BorderSide(color: theme.colorScheme.error),
             padding: const EdgeInsets.symmetric(vertical: 12),
           ),
           child: Text(
             l10n.settingsResetDefaults,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               letterSpacing: 1,
+              fontSize: ResponsiveFontSize.body(deviceType),
             ),
           ),
         ),
       ),
     );
+  }
+
+  double _getResetButtonWidth() {
+    switch (deviceType) {
+      case DeviceType.mobile:
+        return 200;
+      case DeviceType.tablet:
+        return 240;
+      case DeviceType.desktop:
+        return 280;
+    }
   }
 
   void _showResetConfirmDialog(BuildContext context, WidgetRef ref) {
@@ -220,7 +277,9 @@ class _SettingsContent extends ConsumerWidget {
                 ),
               );
             },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: theme.colorScheme.error,
+            ),
             child: Text(l10n.dialogReset),
           ),
         ],

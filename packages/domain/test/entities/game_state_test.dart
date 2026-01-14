@@ -16,6 +16,7 @@ void main() {
         expect(state.linesCleared, equals(0));
         expect(state.status, equals(GameStatus.ready));
         expect(state.canHold, isTrue);
+        expect(state.lastClearedLines, isEmpty);
       });
 
       test('全てのフィールドを指定して生成できる', () {
@@ -104,6 +105,24 @@ void main() {
         final result = original.copyWith(nextQueue: newQueue);
 
         expect(result.nextQueue, equals(newQueue));
+      });
+
+      test('lastClearedLinesを変更できる', () {
+        final original = GameState.initial();
+        const clearedLines = [18, 19];
+
+        final result = original.copyWith(lastClearedLines: clearedLines);
+
+        expect(result.lastClearedLines, equals(clearedLines));
+      });
+
+      test('lastClearedLinesを空リストで更新できる', () {
+        final original =
+            GameState.initial().copyWith(lastClearedLines: [10, 11, 12, 13]);
+
+        final result = original.copyWith(lastClearedLines: []);
+
+        expect(result.lastClearedLines, isEmpty);
       });
     });
 

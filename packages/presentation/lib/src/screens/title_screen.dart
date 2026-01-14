@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/tetris_l10n.dart';
 import '../router/app_router.dart';
 import '../widgets/high_score_dialog.dart';
+import '../widgets/responsive_layout.dart';
 
 /// タイトル画面
 ///
@@ -18,45 +19,79 @@ class TitleScreen extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // タイトルロゴ
-              _TitleLogo(l10n: l10n),
-              const SizedBox(height: 60),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final deviceType =
+                ResponsiveLayout.getDeviceType(constraints.maxWidth);
 
-              // メニューボタン
-              _MenuButton(
-                label: l10n.menuStart,
-                onPressed: () => context.goToGame(),
+            return Center(
+              child: SingleChildScrollView(
+                child: _TitleContent(
+                  l10n: l10n,
+                  deviceType: deviceType,
+                ),
               ),
-              const SizedBox(height: 20),
-
-              _MenuButton(
-                label: l10n.menuHighScore,
-                onPressed: () => _showHighScoreDialog(context),
-              ),
-              const SizedBox(height: 20),
-
-              _MenuButton(
-                label: l10n.menuSettings,
-                onPressed: () => context.goToSettings(),
-              ),
-
-              const SizedBox(height: 80),
-
-              // クレジット
-              Text(
-                l10n.copyright,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 10,
-                    ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
+    );
+  }
+}
+
+/// タイトルコンテンツ
+class _TitleContent extends StatelessWidget {
+  const _TitleContent({
+    required this.l10n,
+    required this.deviceType,
+  });
+
+  final TetrisL10n l10n;
+  final DeviceType deviceType;
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ResponsiveSpacing.large(deviceType);
+    final extraLargeSpacing = ResponsiveSpacing.extraLarge(deviceType);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // タイトルロゴ
+        _TitleLogo(l10n: l10n, deviceType: deviceType),
+        SizedBox(height: extraLargeSpacing),
+
+        // メニューボタン
+        _MenuButton(
+          label: l10n.menuStart,
+          onPressed: () => context.goToGame(),
+          deviceType: deviceType,
+        ),
+        SizedBox(height: spacing * 0.5),
+
+        _MenuButton(
+          label: l10n.menuHighScore,
+          onPressed: () => _showHighScoreDialog(context),
+          deviceType: deviceType,
+        ),
+        SizedBox(height: spacing * 0.5),
+
+        _MenuButton(
+          label: l10n.menuSettings,
+          onPressed: () => context.goToSettings(),
+          deviceType: deviceType,
+        ),
+
+        SizedBox(height: extraLargeSpacing),
+
+        // クレジット
+        Text(
+          l10n.copyright,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: ResponsiveFontSize.caption(deviceType),
+              ),
+        ),
+      ],
     );
   }
 
@@ -70,77 +105,86 @@ class TitleScreen extends ConsumerWidget {
 
 /// タイトルロゴ
 class _TitleLogo extends StatelessWidget {
-  const _TitleLogo({required this.l10n});
+  const _TitleLogo({
+    required this.l10n,
+    required this.deviceType,
+  });
 
   final TetrisL10n l10n;
+  final DeviceType deviceType;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final blockSize = _getBlockSize();
+    final titleFontSize = ResponsiveFontSize.headlineLarge(deviceType);
+    final subtitleFontSize = ResponsiveFontSize.caption(deviceType);
+
     return Column(
       children: [
-        // テトリスブロック風のアイコン
+        // テトリスブロック風のアイコン（Iピース）
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildBlock(Colors.cyan),
-            _buildBlock(Colors.cyan),
-            _buildBlock(Colors.cyan),
-            _buildBlock(Colors.cyan),
-          ],
+          children: List.generate(
+            4,
+            (_) => _buildBlock(theme.colorScheme.primary, blockSize),
+          ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: ResponsiveSpacing.medium(deviceType)),
         // タイトルテキスト
-        Builder(
-          builder: (context) {
-            final theme = Theme.of(context);
-            return ShaderMask(
-              shaderCallback: (bounds) => LinearGradient(
-                colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.secondary,
-                  theme.colorScheme.tertiary,
-                ],
-              ).createShader(bounds),
-              child: Text(
-                l10n.titleTetris,
-                style: theme.textTheme.displayLarge?.copyWith(
-                  fontSize: 32,
-                  letterSpacing: 4,
-                  color: Colors.white,
-                ),
-              ),
-            );
-          },
+        ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [
+              theme.colorScheme.primary,
+              theme.colorScheme.secondary,
+              theme.colorScheme.tertiary,
+            ],
+          ).createShader(bounds),
+          child: Text(
+            l10n.titleTetris,
+            style: theme.textTheme.displayLarge?.copyWith(
+              fontSize: titleFontSize,
+              letterSpacing: 4,
+              color: Colors.white,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
-        Builder(
-          builder: (context) {
-            return Text(
-              l10n.titleSubtitle,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: 8,
-                    letterSpacing: 2,
-                  ),
-            );
-          },
+        Text(
+          l10n.titleSubtitle,
+          style: theme.textTheme.bodySmall?.copyWith(
+            fontSize: subtitleFontSize,
+            letterSpacing: 2,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildBlock(Color color) {
+  double _getBlockSize() {
+    switch (deviceType) {
+      case DeviceType.mobile:
+        return 20;
+      case DeviceType.tablet:
+        return 28;
+      case DeviceType.desktop:
+        return 32;
+    }
+  }
+
+  Widget _buildBlock(Color color, double size) {
     return Container(
-      width: 24,
-      height: 24,
-      margin: const EdgeInsets.all(2),
+      width: size,
+      height: size,
+      margin: EdgeInsets.all(size * 0.08),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(size * 0.15),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.5),
-            blurRadius: 6,
-            spreadRadius: 1,
+            blurRadius: size * 0.25,
+            spreadRadius: size * 0.04,
           ),
         ],
       ),
@@ -153,17 +197,23 @@ class _MenuButton extends StatelessWidget {
   const _MenuButton({
     required this.label,
     required this.onPressed,
+    required this.deviceType,
   });
 
   final String label;
   final VoidCallback onPressed;
+  final DeviceType deviceType;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final buttonWidth = _getButtonWidth();
+    final buttonHeight = _getButtonHeight();
+    final fontSize = ResponsiveFontSize.body(deviceType);
+
     return SizedBox(
-      width: 200,
-      height: 50,
+      width: buttonWidth,
+      height: buttonHeight,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -177,11 +227,33 @@ class _MenuButton extends StatelessWidget {
         child: Text(
           label,
           style: theme.textTheme.labelLarge?.copyWith(
-            fontSize: 12,
+            fontSize: fontSize,
             letterSpacing: 2,
           ),
         ),
       ),
     );
+  }
+
+  double _getButtonWidth() {
+    switch (deviceType) {
+      case DeviceType.mobile:
+        return 180;
+      case DeviceType.tablet:
+        return 220;
+      case DeviceType.desktop:
+        return 260;
+    }
+  }
+
+  double _getButtonHeight() {
+    switch (deviceType) {
+      case DeviceType.mobile:
+        return 44;
+      case DeviceType.tablet:
+        return 50;
+      case DeviceType.desktop:
+        return 56;
+    }
   }
 }

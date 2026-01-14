@@ -6,6 +6,7 @@ import '../flame/tetris_game.dart';
 import '../widgets/hold_panel.dart';
 import '../widgets/mobile_controls.dart';
 import '../widgets/next_panel.dart';
+import '../widgets/responsive_layout.dart';
 import '../widgets/score_panel.dart';
 
 /// ゲームメイン画面
@@ -47,17 +48,22 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0F0F1F),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final isWide = constraints.maxWidth > 600;
+            final deviceType = ResponsiveLayout.getDeviceType(constraints.maxWidth);
 
-            if (isWide) {
-              return _buildWideLayout(constraints);
-            } else {
-              return _buildNarrowLayout(constraints);
+            switch (deviceType) {
+              case DeviceType.mobile:
+                return _buildMobileLayout(constraints);
+              case DeviceType.tablet:
+                return _buildTabletLayout(constraints);
+              case DeviceType.desktop:
+                return _buildDesktopLayout(constraints);
             }
           },
         ),
@@ -65,57 +71,11 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  /// 横長レイアウト（PC/タブレット）
-  Widget _buildWideLayout(BoxConstraints constraints) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // 左パネル（HOLD + SCORE）
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              HoldPanel(
-                heldType: _gameState?.heldTetromino?.type,
-                canHold: _gameState?.canHold ?? true,
-              ),
-              const SizedBox(height: 16),
-              ScorePanel(
-                score: _gameState?.score ?? 0,
-                level: _gameState?.level ?? 1,
-                linesCleared: _gameState?.linesCleared ?? 0,
-              ),
-            ],
-          ),
-        ),
-
-        // ゲームボード
-        Expanded(
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: Board.defaultWidth / Board.defaultHeight,
-              child: GameWidget(game: widget.game),
-            ),
-          ),
-        ),
-
-        // 右パネル（NEXT）
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: NextPanel(
-            nextQueue: _gameState?.nextQueue ?? [],
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// 縦長レイアウト（モバイル）
-  Widget _buildNarrowLayout(BoxConstraints constraints) {
+  /// モバイルレイアウト（縦長）
+  Widget _buildMobileLayout(BoxConstraints constraints) {
     return Column(
       children: [
-        // 上部パネル
+        // 上部パネル（横並び）
         Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
@@ -166,6 +126,109 @@ class _GameScreenState extends State<GameScreen> {
       ],
     );
   }
+
+  /// タブレットレイアウト（中間サイズ）
+  Widget _buildTabletLayout(BoxConstraints constraints) {
+    // タブレットでは横長レイアウトだが、パネルサイズを調整
+    final panelWidth = constraints.maxWidth * 0.2;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // 左パネル
+        SizedBox(
+          width: panelWidth.clamp(100, 160),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                HoldPanel(
+                  heldType: _gameState?.heldTetromino?.type,
+                  canHold: _gameState?.canHold ?? true,
+                  cellSize: 16,
+                ),
+                const SizedBox(height: 12),
+                ScorePanel(
+                  score: _gameState?.score ?? 0,
+                  level: _gameState?.level ?? 1,
+                  linesCleared: _gameState?.linesCleared ?? 0,
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        // ゲームボード
+        Expanded(
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: Board.defaultWidth / Board.defaultHeight,
+              child: GameWidget(game: widget.game),
+            ),
+          ),
+        ),
+
+        // 右パネル
+        SizedBox(
+          width: panelWidth.clamp(100, 160),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: NextPanel(
+              nextQueue: _gameState?.nextQueue ?? [],
+              cellSize: 16,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// デスクトップレイアウト（横長）
+  Widget _buildDesktopLayout(BoxConstraints constraints) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // 左パネル（HOLD + SCORE）
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HoldPanel(
+                heldType: _gameState?.heldTetromino?.type,
+                canHold: _gameState?.canHold ?? true,
+              ),
+              const SizedBox(height: 16),
+              ScorePanel(
+                score: _gameState?.score ?? 0,
+                level: _gameState?.level ?? 1,
+                linesCleared: _gameState?.linesCleared ?? 0,
+              ),
+            ],
+          ),
+        ),
+
+        // ゲームボード
+        Expanded(
+          child: Center(
+            child: AspectRatio(
+              aspectRatio: Board.defaultWidth / Board.defaultHeight,
+              child: GameWidget(game: widget.game),
+            ),
+          ),
+        ),
+
+        // 右パネル（NEXT）
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: NextPanel(
+            nextQueue: _gameState?.nextQueue ?? [],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 /// ゲームオーバーオーバーレイ
@@ -189,37 +252,37 @@ class GameOverOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       color: Colors.black54,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-            color: const Color(0xFF1A1A2E),
+            color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: const Color(0xFF4A4A6E),
+              color: theme.colorScheme.outline,
               width: 2,
             ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'GAME OVER',
-                style: TextStyle(
-                  color: Color(0xFFFF4444),
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.colorScheme.error,
+                  fontSize: 24,
                   letterSpacing: 4,
                 ),
               ),
               const SizedBox(height: 24),
               Text(
                 'SCORE: ${score.toString().padLeft(8, '0')}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontSize: 14,
                   fontFamily: 'monospace',
                 ),
               ),
@@ -230,7 +293,13 @@ class GameOverOverlay extends StatelessWidget {
                   ElevatedButton(
                     onPressed: onRestart,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4A6A4A),
+                      backgroundColor:
+                          theme.colorScheme.primary.withValues(alpha: 0.2),
+                      foregroundColor: theme.colorScheme.primary,
+                      side: BorderSide(
+                        color: theme.colorScheme.primary,
+                        width: 2,
+                      ),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
@@ -242,7 +311,13 @@ class GameOverOverlay extends StatelessWidget {
                   ElevatedButton(
                     onPressed: onQuit,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6A4A4A),
+                      backgroundColor:
+                          theme.colorScheme.error.withValues(alpha: 0.2),
+                      foregroundColor: theme.colorScheme.error,
+                      side: BorderSide(
+                        color: theme.colorScheme.error,
+                        width: 2,
+                      ),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
@@ -259,5 +334,3 @@ class GameOverOverlay extends StatelessWidget {
     );
   }
 }
-
-

@@ -20,6 +20,7 @@ class GameState {
     required this.linesCleared,
     required this.status,
     required this.canHold,
+    this.lastClearedLines = const [],
   });
 
   /// 初期状態のGameStateを生成
@@ -64,6 +65,9 @@ class GameState {
   /// ホールドが可能かどうか（1ターン1回の制限）
   final bool canHold;
 
+  /// 直前に消去されたライン番号のリスト（アニメーション用）
+  final List<int> lastClearedLines;
+
   /// ゲームオーバーかどうか
   bool get isGameOver => status == GameStatus.gameOver;
 
@@ -84,6 +88,7 @@ class GameState {
     int? linesCleared,
     GameStatus? status,
     bool? canHold,
+    List<int>? lastClearedLines,
     // nullを明示的に設定するためのフラグ
     bool clearCurrentTetromino = false,
     bool clearHeldTetromino = false,
@@ -102,6 +107,7 @@ class GameState {
       linesCleared: linesCleared ?? this.linesCleared,
       status: status ?? this.status,
       canHold: canHold ?? this.canHold,
+      lastClearedLines: lastClearedLines ?? this.lastClearedLines,
     );
   }
 
@@ -118,7 +124,8 @@ class GameState {
         other.level == level &&
         other.linesCleared == linesCleared &&
         other.status == status &&
-        other.canHold == canHold;
+        other.canHold == canHold &&
+        _listEquals(other.lastClearedLines, lastClearedLines);
   }
 
   @override
@@ -132,6 +139,7 @@ class GameState {
         linesCleared,
         status,
         canHold,
+        Object.hashAll(lastClearedLines),
       );
 
   @override

@@ -143,6 +143,7 @@ class GameTickUseCase {
         linesCleared: newTotalLines,
         status: isGameOver ? GameStatus.gameOver : GameStatus.playing,
         canHold: true, // ロック後はホールド可能に戻る
+        lastClearedLines: clearResult.clearedLineIndices,
       ),
     );
   }

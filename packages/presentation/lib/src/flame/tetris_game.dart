@@ -25,8 +25,8 @@ class TetrisGame extends FlameGame with KeyboardEvents {
     this.cellSize = 30.0,
     this.autoStart = false,
     AudioService? audioService,
-  })  : _controller = controller,
-        _audioService = audioService;
+  }) : _controller = controller,
+       _audioService = audioService;
 
   final GameController _controller;
   final AudioService? _audioService;
@@ -283,7 +283,9 @@ class TetrisGame extends FlameGame with KeyboardEvents {
       LogicalKeyboardKey.arrowDown => _handleSoftDrop(),
       LogicalKeyboardKey.arrowUp => _handleRotate(RotationDirection.clockwise),
       LogicalKeyboardKey.keyX => _handleRotate(RotationDirection.clockwise),
-      LogicalKeyboardKey.keyZ => _handleRotate(RotationDirection.counterClockwise),
+      LogicalKeyboardKey.keyZ => _handleRotate(
+        RotationDirection.counterClockwise,
+      ),
       LogicalKeyboardKey.space => _handleHardDrop(),
       LogicalKeyboardKey.keyC => _handleHold(),
       LogicalKeyboardKey.shift => _handleHold(),

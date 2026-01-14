@@ -21,9 +21,18 @@ class TetrominoComponent extends PositionComponent {
         _cellSize = cellSize,
         _isGhost = isGhost;
 
-  final Tetromino _tetromino;
+  Tetromino _tetromino;
   final double _cellSize;
   final bool _isGhost;
+
+  /// ブロックのプール（再利用用）
+  final List<BlockComponent> _blockPool = [];
+
+  /// 前回のテトリミノタイプ（型変更検知用）
+  TetrominoType? _lastType;
+
+  /// 前回の回転状態
+  RotationState? _lastRotation;
 
   @override
   Future<void> onLoad() async {
@@ -35,7 +44,8 @@ class TetrominoComponent extends PositionComponent {
   void _createBlocks() {
     final shape = TetrominoShapes.getShape(_tetromino.type, _tetromino.rotation);
 
-    for (final offset in shape) {
+    for (var i = 0; i < shape.length; i++) {
+      final offset = shape[i];
       final block = BlockComponent(
         type: _tetromino.type,
         cellSize: _cellSize,
@@ -44,20 +54,56 @@ class TetrominoComponent extends PositionComponent {
           offset.x * _cellSize,
           offset.y * _cellSize,
         );
+      _blockPool.add(block);
       add(block);
     }
+
+    _lastType = _tetromino.type;
+    _lastRotation = _tetromino.rotation;
   }
 
   /// テトリミノを更新する
   ///
   /// 新しいテトリミノでブロックを再配置する。
+  /// 可能な限りブロックを再利用してパフォーマンスを向上。
   void updateTetromino(Tetromino newTetromino) {
-    // 古いブロックを削除
-    removeAll(children.whereType<BlockComponent>());
+    _tetromino = newTetromino;
 
-    // 新しい形状でブロックを生成
-    final shape = TetrominoShapes.getShape(newTetromino.type, newTetromino.rotation);
+    final shape =
+        TetrominoShapes.getShape(newTetromino.type, newTetromino.rotation);
 
+    // タイプまたは回転が変わった場合のみブロックを更新
+    final needsBlockUpdate =
+        _lastType != newTetromino.type || _lastRotation != newTetromino.rotation;
+
+    if (!needsBlockUpdate) {
+      return; // 位置のみの変更は親コンポーネントの位置更新で対応済み
+    }
+
+    // タイプが変わった場合はブロックを再生成
+    if (_lastType != newTetromino.type) {
+      _recreateBlocksForNewType(newTetromino, shape);
+    } else {
+      // 回転のみ変わった場合は位置を更新
+      _updateBlockPositions(shape);
+    }
+
+    _lastType = newTetromino.type;
+    _lastRotation = newTetromino.rotation;
+  }
+
+  /// 新しいタイプ用にブロックを再生成
+  void _recreateBlocksForNewType(
+    Tetromino newTetromino,
+    List<Position> shape,
+  ) {
+    // 既存のブロックを削除
+    for (final block in _blockPool) {
+      block.removeFromParent();
+    }
+    _blockPool.clear();
+
+    // 新しいブロックを生成
     for (final offset in shape) {
       final block = BlockComponent(
         type: newTetromino.type,
@@ -67,7 +113,20 @@ class TetrominoComponent extends PositionComponent {
           offset.x * _cellSize,
           offset.y * _cellSize,
         );
+      _blockPool.add(block);
       add(block);
+    }
+  }
+
+  /// ブロック位置を更新（回転変更時）
+  void _updateBlockPositions(List<Position> shape) {
+    // プール内のブロック数と新しい形状のブロック数は常に同じ（テトリミノは常に4ブロック）
+    for (var i = 0; i < shape.length && i < _blockPool.length; i++) {
+      final offset = shape[i];
+      _blockPool[i].position = Vector2(
+        offset.x * _cellSize,
+        offset.y * _cellSize,
+      );
     }
   }
 }

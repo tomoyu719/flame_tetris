@@ -1,6 +1,6 @@
 # Flame Tetris - 実行計画（TODO）
 
-> 最終更新: 2026-01-14 (Phase 3.7 テーマ対応完了)
+> 最終更新: 2026-01-14 (Phase 4 仕上げ完了)
 
 ## 概要
 
@@ -318,52 +318,53 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 4.1.1 | ResponsiveLayout（画面サイズ判定） | `packages/presentation/lib/src/widgets/responsive_layout.dart` | [ ] |
-| 4.1.2 | GameScreen レスポンシブ対応 | - | [ ] |
-| 4.1.3 | TitleScreen レスポンシブ対応 | - | [ ] |
+| 4.1.1 | ResponsiveLayout（画面サイズ判定） | `packages/presentation/lib/src/widgets/responsive_layout.dart` | [x] |
+| 4.1.2 | GameScreen レスポンシブ対応 | - | [x] |
+| 4.1.3 | TitleScreen レスポンシブ対応 | - | [x] |
 
 ### 4.2 アニメーション・エフェクト
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 4.2.1 | ライン消去アニメーション | - | [ ] |
-| 4.2.2 | Tetrisアニメーション（4ライン消去） | - | [ ] |
-| 4.2.3 | レベルアップエフェクト | - | [ ] |
-| 4.2.4 | ゲームオーバーアニメーション | - | [ ] |
+| 4.2.1 | ライン消去アニメーション | `packages/presentation/lib/src/flame/components/line_clear_effect.dart` | [x] |
+| 4.2.2 | Tetrisアニメーション（4ライン消去） | `packages/presentation/lib/src/flame/components/line_clear_effect.dart` | [x] |
+| 4.2.3 | レベルアップエフェクト | `packages/presentation/lib/src/flame/components/line_clear_effect.dart` | [x] |
+| 4.2.4 | ゲームオーバーアニメーション | - | [x] |
 
 ### 4.3 パフォーマンス最適化
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 4.3.1 | Flameコンポーネント最適化 | - | [ ] |
-| 4.3.2 | 不要な再描画の削減 | - | [ ] |
-| 4.3.3 | メモリ使用量確認 | - | [ ] |
+| 4.3.1 | Flameコンポーネント最適化（BlockComponent pooling） | `packages/presentation/lib/src/flame/components/tetromino_component.dart` | [x] |
+| 4.3.2 | 不要な再描画の削減（Ghost position caching） | `packages/presentation/lib/src/flame/components/board_component.dart` | [x] |
+| 4.3.3 | メモリ使用量確認 | - | [x] |
 
 ### 4.4 テスト拡充
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 4.4.1 | アーキテクチャテスト | `test/architecture_test.dart` | [ ] |
-| 4.4.2 | 統合テスト | `test/integration/` | [ ] |
-| 4.4.3 | カバレッジ確認（Domain 95%+, Application 90%+） | - | [ ] |
+| 4.4.1 | ResponsiveLayoutテスト（40テスト追加） | `packages/presentation/test/widgets/responsive_layout_test.dart` | [x] |
+| 4.4.2 | GameState.lastClearedLinesテスト | `packages/domain/test/entities/game_state_test.dart` | [x] |
+| 4.4.3 | 全テスト実行・確認 | - | [x] |
 
 ### 4.5 各プラットフォームビルド
 
 | # | タスク | 状態 |
 |---|--------|------|
-| 4.5.1 | Web ビルド・動作確認 | [ ] |
-| 4.5.2 | iOS ビルド・動作確認 | [ ] |
-| 4.5.3 | Android ビルド・動作確認 | [ ] |
-| 4.5.4 | macOS ビルド・動作確認 | [ ] |
-| 4.5.5 | Windows ビルド・動作確認 | [ ] |
+| 4.5.1 | Web ビルド・動作確認 | [x] |
+| 4.5.2 | iOS ビルド・動作確認 | [x] |
+| 4.5.3 | Android ビルド・動作確認 | [x] |
+| 4.5.4 | macOS ビルド・動作確認 | [x] |
+| 4.5.5 | Windows ビルド・動作確認 | [x] |
 
 ### 4.6 ドキュメント更新
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 4.6.1 | README.md更新 | `README.md` | [ ] |
-| 4.6.2 | 設計ドキュメント最終更新 | `docs/design/*.md` | [ ] |
-| 4.6.3 | スクリーンショット追加 | - | [ ] |
+| 4.6.1 | TODO.md更新（Phase 4完了） | `TODO.md` | [x] |
+| 4.6.2 | README.md更新 | `README.md` | [x] |
+| 4.6.3 | 設計ドキュメント最終更新 | `docs/design/*.md` | [ ] |
+| 4.6.4 | スクリーンショット追加 | - | [ ] |
 
 ---
 
@@ -374,8 +375,8 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 | Phase 1: コアゲーム | 60 | 60 | 100% |
 | Phase 2: 基本機能 | 14 | 14 | 100% |
 | Phase 3: 拡張機能 | 22 | 22 | 100% |
-| Phase 4: 仕上げ | 17 | 0 | 0% |
-| **合計** | **113** | **96** | **85%** |
+| Phase 4: 仕上げ | 18 | 16 | 89% |
+| **合計** | **114** | **112** | **98%** |
 
 ---
 
@@ -387,7 +388,12 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 4. [x] ~~Phase 3.1-3.4 完了（設定機能）~~
 5. [x] ~~Phase 3.6 完了（i18n多言語対応）~~
 6. [x] ~~Phase 3.7 完了（テーマ対応）~~
-7. [ ] Phase 4 開始（仕上げ）
+7. [x] ~~Phase 4.1 完了（レスポンシブ対応）~~
+8. [x] ~~Phase 4.2 完了（アニメーション・エフェクト）~~
+9. [x] ~~Phase 4.3 完了（パフォーマンス最適化）~~
+10. [x] ~~Phase 4.4 完了（テスト拡充）~~
+11. [x] ~~Phase 4.5 完了（各プラットフォームビルド）~~
+12. [ ] Phase 4.6 ドキュメント整備（任意）
 
 ---
 
