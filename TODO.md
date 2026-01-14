@@ -1,6 +1,6 @@
 # Flame Tetris - 実行計画（TODO）
 
-> 最終更新: 2026-01-14
+> 最終更新: 2026-01-14 (Phase 1 完了)
 
 ## 概要
 
@@ -27,157 +27,157 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.1.1 | TetrominoType enum（I,O,T,S,Z,J,L + 色情報） | `packages/domain/lib/src/enums/tetromino_type.dart` | [ ] |
-| 1.1.2 | RotationState enum（0°,90°,180°,270°） | `packages/domain/lib/src/enums/rotation_state.dart` | [ ] |
-| 1.1.3 | MoveDirection enum（left, right, down） | `packages/domain/lib/src/enums/move_direction.dart` | [ ] |
-| 1.1.4 | RotationDirection enum（clockwise, counterClockwise） | `packages/domain/lib/src/enums/rotation_direction.dart` | [ ] |
-| 1.1.5 | GameStatus enum（ready, playing, paused, gameOver） | `packages/domain/lib/src/enums/game_status.dart` | [ ] |
-| 1.1.6 | enums.dart barrel更新 | `packages/domain/lib/src/enums/enums.dart` | [ ] |
+| 1.1.1 | TetrominoType enum（I,O,T,S,Z,J,L + 色情報） | `packages/domain/lib/src/enums/tetromino_type.dart` | [x] |
+| 1.1.2 | RotationState enum（0°,90°,180°,270°） | `packages/domain/lib/src/enums/rotation_state.dart` | [x] |
+| 1.1.3 | MoveDirection enum（left, right, down） | `packages/domain/lib/src/enums/move_direction.dart` | [x] |
+| 1.1.4 | RotationDirection enum（clockwise, counterClockwise） | `packages/domain/lib/src/enums/rotation_direction.dart` | [x] |
+| 1.1.5 | GameStatus enum（ready, playing, paused, gameOver） | `packages/domain/lib/src/enums/game_status.dart` | [x] |
+| 1.1.6 | enums.dart barrel更新 | `packages/domain/lib/src/enums/enums.dart` | [x] |
 
 ### 1.2 Domain層 - Entities
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.2.1 | 🔴 Position テスト作成 | `packages/domain/test/entities/position_test.dart` | [ ] |
-| 1.2.2 | 🟢 Position 実装（x, y座標、演算子） | `packages/domain/lib/src/entities/position.dart` | [ ] |
-| 1.2.3 | 🔴 Tetromino テスト作成 | `packages/domain/test/entities/tetromino_test.dart` | [ ] |
-| 1.2.4 | 🟢 Tetromino 実装（type, position, rotation, cells） | `packages/domain/lib/src/entities/tetromino.dart` | [ ] |
-| 1.2.5 | 🔴 Board テスト作成 | `packages/domain/test/entities/board_test.dart` | [ ] |
-| 1.2.6 | 🟢 Board 実装（grid, place, clearLines） | `packages/domain/lib/src/entities/board.dart` | [ ] |
-| 1.2.7 | 🔴 GameState テスト作成 | `packages/domain/test/entities/game_state_test.dart` | [ ] |
-| 1.2.8 | 🟢 GameState 実装（board, current, held, nextQueue, score, level, status） | `packages/domain/lib/src/entities/game_state.dart` | [ ] |
-| 1.2.9 | entities.dart barrel更新 | `packages/domain/lib/src/entities/entities.dart` | [ ] |
+| 1.2.1 | 🔴 Position テスト作成 | `packages/domain/test/entities/position_test.dart` | [x] |
+| 1.2.2 | 🟢 Position 実装（x, y座標、演算子） | `packages/domain/lib/src/entities/position.dart` | [x] |
+| 1.2.3 | 🔴 Tetromino テスト作成 | `packages/domain/test/entities/tetromino_test.dart` | [x] |
+| 1.2.4 | 🟢 Tetromino 実装（type, position, rotation, cells） | `packages/domain/lib/src/entities/tetromino.dart` | [x] |
+| 1.2.5 | 🔴 Board テスト作成 | `packages/domain/test/entities/board_test.dart` | [x] |
+| 1.2.6 | 🟢 Board 実装（grid, place, clearLines） | `packages/domain/lib/src/entities/board.dart` | [x] |
+| 1.2.7 | 🔴 GameState テスト作成 | `packages/domain/test/entities/game_state_test.dart` | [x] |
+| 1.2.8 | 🟢 GameState 実装（board, current, held, nextQueue, score, level, status） | `packages/domain/lib/src/entities/game_state.dart` | [x] |
+| 1.2.9 | entities.dart barrel更新 | `packages/domain/lib/src/entities/entities.dart` | [x] |
 
 ### 1.3 Domain層 - Value Objects
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.3.1 | 🔴 Level テスト作成 | `packages/domain/test/value_objects/level_test.dart` | [ ] |
-| 1.3.2 | 🟢 Level 実装（1-15、速度計算） | `packages/domain/lib/src/value_objects/level.dart` | [ ] |
-| 1.3.3 | 🔴 LinesCleared テスト作成 | `packages/domain/test/value_objects/lines_cleared_test.dart` | [ ] |
-| 1.3.4 | 🟢 LinesCleared 実装（0-4、レベルアップ判定） | `packages/domain/lib/src/value_objects/lines_cleared.dart` | [ ] |
-| 1.3.5 | value_objects.dart barrel更新 | `packages/domain/lib/src/value_objects/value_objects.dart` | [ ] |
+| 1.3.1 | 🔴 Level テスト作成 | `packages/domain/test/value_objects/level_test.dart` | [x] |
+| 1.3.2 | 🟢 Level 実装（1-15、速度計算） | `packages/domain/lib/src/value_objects/level.dart` | [x] |
+| 1.3.3 | 🔴 LinesCleared テスト作成 | `packages/domain/test/value_objects/lines_cleared_test.dart` | [x] |
+| 1.3.4 | 🟢 LinesCleared 実装（0-4、レベルアップ判定） | `packages/domain/lib/src/value_objects/lines_cleared.dart` | [x] |
+| 1.3.5 | value_objects.dart barrel更新 | `packages/domain/lib/src/value_objects/value_objects.dart` | [x] |
 
 ### 1.4 Domain層 - テトリミノ形状データ
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.4.1 | TetrominoShapes 定数（全7種×4回転状態の座標） | `packages/domain/lib/src/constants/tetromino_shapes.dart` | [ ] |
-| 1.4.2 | SRSKickData 定数（壁蹴りテーブル） | `packages/domain/lib/src/constants/srs_kick_data.dart` | [ ] |
+| 1.4.1 | TetrominoShapes 定数（全7種×4回転状態の座標） | `packages/domain/lib/src/constants/tetromino_shapes.dart` | [x] |
+| 1.4.2 | SRSKickData 定数（壁蹴りテーブル） | `packages/domain/lib/src/constants/srs_kick_data.dart` | [x] |
 
 ### 1.5 Domain層 - Services（インターフェース）
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.5.1 | CollisionService interface | `packages/domain/lib/src/services/collision_service.dart` | [ ] |
-| 1.5.2 | RotationService interface | `packages/domain/lib/src/services/rotation_service.dart` | [ ] |
-| 1.5.3 | LineClearService interface | `packages/domain/lib/src/services/line_clear_service.dart` | [ ] |
-| 1.5.4 | ScoringService interface | `packages/domain/lib/src/services/scoring_service.dart` | [ ] |
-| 1.5.5 | services.dart barrel更新 | `packages/domain/lib/src/services/services.dart` | [ ] |
+| 1.5.1 | CollisionService interface | `packages/domain/lib/src/services/collision_service.dart` | [x] |
+| 1.5.2 | RotationService interface | `packages/domain/lib/src/services/rotation_service.dart` | [x] |
+| 1.5.3 | LineClearService interface | `packages/domain/lib/src/services/line_clear_service.dart` | [x] |
+| 1.5.4 | ScoringService interface | `packages/domain/lib/src/services/scoring_service.dart` | [x] |
+| 1.5.5 | services.dart barrel更新 | `packages/domain/lib/src/services/services.dart` | [x] |
 
 ### 1.6 Domain層 - Failures
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.6.1 | Failure 基底クラス | `packages/domain/lib/src/failures/failure.dart` | [ ] |
-| 1.6.2 | GameFailure（CollisionFailure, InvalidMoveFailure等） | `packages/domain/lib/src/failures/game_failure.dart` | [ ] |
-| 1.6.3 | failures.dart barrel更新 | `packages/domain/lib/src/failures/failures.dart` | [ ] |
+| 1.6.1 | Failure 基底クラス | `packages/domain/lib/src/failures/failure.dart` | [x] |
+| 1.6.2 | GameFailure（CollisionFailure, InvalidMoveFailure等） | `packages/domain/lib/src/failures/game_failure.dart` | [x] |
+| 1.6.3 | failures.dart barrel更新 | `packages/domain/lib/src/failures/failures.dart` | [x] |
 
 ### 1.7 Infrastructure層 - Services実装
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.7.1 | 🔴 CollisionServiceImpl テスト | `packages/infrastructure/test/services/collision_service_impl_test.dart` | [ ] |
-| 1.7.2 | 🟢 CollisionServiceImpl 実装 | `packages/infrastructure/lib/src/services/collision_service_impl.dart` | [ ] |
-| 1.7.3 | 🔴 RotationServiceImpl テスト（SRS壁蹴り含む） | `packages/infrastructure/test/services/rotation_service_impl_test.dart` | [ ] |
-| 1.7.4 | 🟢 RotationServiceImpl 実装 | `packages/infrastructure/lib/src/services/rotation_service_impl.dart` | [ ] |
-| 1.7.5 | 🔴 LineClearServiceImpl テスト | `packages/infrastructure/test/services/line_clear_service_impl_test.dart` | [ ] |
-| 1.7.6 | 🟢 LineClearServiceImpl 実装 | `packages/infrastructure/lib/src/services/line_clear_service_impl.dart` | [ ] |
-| 1.7.7 | 🔴 ScoringServiceImpl テスト | `packages/infrastructure/test/services/scoring_service_impl_test.dart` | [ ] |
-| 1.7.8 | 🟢 ScoringServiceImpl 実装 | `packages/infrastructure/lib/src/services/scoring_service_impl.dart` | [ ] |
-| 1.7.9 | services.dart barrel更新 | `packages/infrastructure/lib/src/services/services.dart` | [ ] |
+| 1.7.1 | 🔴 CollisionServiceImpl テスト | `packages/infrastructure/test/services/collision_service_impl_test.dart` | [x] |
+| 1.7.2 | 🟢 CollisionServiceImpl 実装 | `packages/infrastructure/lib/src/services/collision_service_impl.dart` | [x] |
+| 1.7.3 | 🔴 RotationServiceImpl テスト（SRS壁蹴り含む） | `packages/infrastructure/test/services/rotation_service_impl_test.dart` | [x] |
+| 1.7.4 | 🟢 RotationServiceImpl 実装 | `packages/infrastructure/lib/src/services/rotation_service_impl.dart` | [x] |
+| 1.7.5 | 🔴 LineClearServiceImpl テスト | `packages/infrastructure/test/services/line_clear_service_impl_test.dart` | [x] |
+| 1.7.6 | 🟢 LineClearServiceImpl 実装 | `packages/infrastructure/lib/src/services/line_clear_service_impl.dart` | [x] |
+| 1.7.7 | 🔴 ScoringServiceImpl テスト | `packages/infrastructure/test/services/scoring_service_impl_test.dart` | [x] |
+| 1.7.8 | 🟢 ScoringServiceImpl 実装 | `packages/infrastructure/lib/src/services/scoring_service_impl.dart` | [x] |
+| 1.7.9 | services.dart barrel更新 | `packages/infrastructure/lib/src/services/services.dart` | [x] |
 
 ### 1.8 Application層 - Services
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.8.1 | 🔴 TetrominoGenerator テスト（7-bag） | `packages/application/test/services/tetromino_generator_test.dart` | [ ] |
-| 1.8.2 | 🟢 TetrominoGenerator 実装 | `packages/application/lib/src/services/tetromino_generator.dart` | [ ] |
-| 1.8.3 | services.dart barrel更新 | `packages/application/lib/src/services/services.dart` | [ ] |
+| 1.8.1 | 🔴 TetrominoGenerator テスト（7-bag） | `packages/application/test/services/tetromino_generator_test.dart` | [x] |
+| 1.8.2 | 🟢 TetrominoGenerator 実装 | `packages/application/lib/src/services/tetromino_generator.dart` | [x] |
+| 1.8.3 | services.dart barrel更新 | `packages/application/lib/src/services/services.dart` | [x] |
 
 ### 1.9 Application層 - UseCases
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.9.1 | 🔴 StartGameUseCase テスト | `packages/application/test/usecases/start_game_usecase_test.dart` | [ ] |
-| 1.9.2 | 🟢 StartGameUseCase 実装 | `packages/application/lib/src/usecases/start_game_usecase.dart` | [ ] |
-| 1.9.3 | 🔴 MoveTetrominoUseCase テスト | `packages/application/test/usecases/move_tetromino_usecase_test.dart` | [ ] |
-| 1.9.4 | 🟢 MoveTetrominoUseCase 実装 | `packages/application/lib/src/usecases/move_tetromino_usecase.dart` | [ ] |
-| 1.9.5 | 🔴 RotateTetrominoUseCase テスト | `packages/application/test/usecases/rotate_tetromino_usecase_test.dart` | [ ] |
-| 1.9.6 | 🟢 RotateTetrominoUseCase 実装 | `packages/application/lib/src/usecases/rotate_tetromino_usecase.dart` | [ ] |
-| 1.9.7 | 🔴 SoftDropUseCase テスト | `packages/application/test/usecases/soft_drop_usecase_test.dart` | [ ] |
-| 1.9.8 | 🟢 SoftDropUseCase 実装 | `packages/application/lib/src/usecases/soft_drop_usecase.dart` | [ ] |
-| 1.9.9 | 🔴 HardDropUseCase テスト | `packages/application/test/usecases/hard_drop_usecase_test.dart` | [ ] |
-| 1.9.10 | 🟢 HardDropUseCase 実装 | `packages/application/lib/src/usecases/hard_drop_usecase.dart` | [ ] |
-| 1.9.11 | 🔴 HoldTetrominoUseCase テスト | `packages/application/test/usecases/hold_tetromino_usecase_test.dart` | [ ] |
-| 1.9.12 | 🟢 HoldTetrominoUseCase 実装 | `packages/application/lib/src/usecases/hold_tetromino_usecase.dart` | [ ] |
-| 1.9.13 | 🔴 GameTickUseCase テスト（自動落下+着地処理） | `packages/application/test/usecases/game_tick_usecase_test.dart` | [ ] |
-| 1.9.14 | 🟢 GameTickUseCase 実装 | `packages/application/lib/src/usecases/game_tick_usecase.dart` | [ ] |
-| 1.9.15 | 🔴 PauseGameUseCase テスト | `packages/application/test/usecases/pause_game_usecase_test.dart` | [ ] |
-| 1.9.16 | 🟢 PauseGameUseCase 実装 | `packages/application/lib/src/usecases/pause_game_usecase.dart` | [ ] |
-| 1.9.17 | usecases.dart barrel更新 | `packages/application/lib/src/usecases/usecases.dart` | [ ] |
+| 1.9.1 | 🔴 StartGameUseCase テスト | `packages/application/test/usecases/start_game_usecase_test.dart` | [x] |
+| 1.9.2 | 🟢 StartGameUseCase 実装 | `packages/application/lib/src/usecases/start_game_usecase.dart` | [x] |
+| 1.9.3 | 🔴 MoveTetrominoUseCase テスト | `packages/application/test/usecases/move_tetromino_usecase_test.dart` | [x] |
+| 1.9.4 | 🟢 MoveTetrominoUseCase 実装 | `packages/application/lib/src/usecases/move_tetromino_usecase.dart` | [x] |
+| 1.9.5 | 🔴 RotateTetrominoUseCase テスト | `packages/application/test/usecases/rotate_tetromino_usecase_test.dart` | [x] |
+| 1.9.6 | 🟢 RotateTetrominoUseCase 実装 | `packages/application/lib/src/usecases/rotate_tetromino_usecase.dart` | [x] |
+| 1.9.7 | 🔴 SoftDropUseCase テスト | `packages/application/test/usecases/soft_drop_usecase_test.dart` | [x] |
+| 1.9.8 | 🟢 SoftDropUseCase 実装 | `packages/application/lib/src/usecases/soft_drop_usecase.dart` | [x] |
+| 1.9.9 | 🔴 HardDropUseCase テスト | `packages/application/test/usecases/hard_drop_usecase_test.dart` | [x] |
+| 1.9.10 | 🟢 HardDropUseCase 実装 | `packages/application/lib/src/usecases/hard_drop_usecase.dart` | [x] |
+| 1.9.11 | 🔴 HoldTetrominoUseCase テスト | `packages/application/test/usecases/hold_tetromino_usecase_test.dart` | [x] |
+| 1.9.12 | 🟢 HoldTetrominoUseCase 実装 | `packages/application/lib/src/usecases/hold_tetromino_usecase.dart` | [x] |
+| 1.9.13 | 🔴 GameTickUseCase テスト（自動落下+着地処理） | `packages/application/test/usecases/game_tick_usecase_test.dart` | [x] |
+| 1.9.14 | 🟢 GameTickUseCase 実装 | `packages/application/lib/src/usecases/game_tick_usecase.dart` | [x] |
+| 1.9.15 | 🔴 PauseGameUseCase テスト | `packages/application/test/usecases/pause_game_usecase_test.dart` | [x] |
+| 1.9.16 | 🟢 PauseGameUseCase 実装 | `packages/application/lib/src/usecases/pause_game_usecase.dart` | [x] |
+| 1.9.17 | usecases.dart barrel更新 | `packages/application/lib/src/usecases/usecases.dart` | [x] |
 
 ### 1.10 Presentation層 - GameController
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.10.1 | 🔴 GameController テスト | `packages/presentation/test/controllers/game_controller_test.dart` | [ ] |
-| 1.10.2 | 🟢 GameController 実装（ChangeNotifier） | `packages/presentation/lib/src/controllers/game_controller.dart` | [ ] |
-| 1.10.3 | controllers.dart barrel更新 | `packages/presentation/lib/src/controllers/controllers.dart` | [ ] |
+| 1.10.1 | 🔴 GameController テスト | `packages/presentation/test/controllers/game_controller_test.dart` | [x] |
+| 1.10.2 | 🟢 GameController 実装（ChangeNotifier） | `packages/presentation/lib/src/controllers/game_controller.dart` | [x] |
+| 1.10.3 | controllers.dart barrel更新 | `packages/presentation/lib/src/controllers/controllers.dart` | [x] |
 
 ### 1.11 Presentation層 - Flameコンポーネント
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.11.1 | TetrisGame（FlameGame本体） | `packages/presentation/lib/src/flame/tetris_game.dart` | [ ] |
-| 1.11.2 | BoardComponent（ボード描画） | `packages/presentation/lib/src/flame/components/board_component.dart` | [ ] |
-| 1.11.3 | TetrominoComponent（テトリミノ描画） | `packages/presentation/lib/src/flame/components/tetromino_component.dart` | [ ] |
-| 1.11.4 | GhostComponent（ゴーストピース描画） | `packages/presentation/lib/src/flame/components/ghost_component.dart` | [ ] |
-| 1.11.5 | BlockComponent（個別ブロック描画） | `packages/presentation/lib/src/flame/components/block_component.dart` | [ ] |
-| 1.11.6 | flame.dart barrel更新 | `packages/presentation/lib/src/flame/flame.dart` | [ ] |
+| 1.11.1 | TetrisGame（FlameGame本体） | `packages/presentation/lib/src/flame/tetris_game.dart` | [x] |
+| 1.11.2 | BoardComponent（ボード描画） | `packages/presentation/lib/src/flame/components/board_component.dart` | [x] |
+| 1.11.3 | TetrominoComponent（テトリミノ描画） | `packages/presentation/lib/src/flame/components/tetromino_component.dart` | [x] |
+| 1.11.4 | GhostComponent（ゴーストピース描画） | `packages/presentation/lib/src/flame/components/ghost_component.dart` | [x] |
+| 1.11.5 | BlockComponent（個別ブロック描画） | `packages/presentation/lib/src/flame/components/block_component.dart` | [x] |
+| 1.11.6 | flame.dart barrel更新 | `packages/presentation/lib/src/flame/flame.dart` | [x] |
 
 ### 1.12 Presentation層 - ゲーム画面
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.12.1 | GameScreen（メイン画面レイアウト） | `packages/presentation/lib/src/screens/game_screen.dart` | [ ] |
-| 1.12.2 | ScorePanel（スコア・レベル表示） | `packages/presentation/lib/src/widgets/score_panel.dart` | [ ] |
-| 1.12.3 | NextPanel（NEXT表示） | `packages/presentation/lib/src/widgets/next_panel.dart` | [ ] |
-| 1.12.4 | HoldPanel（HOLD表示） | `packages/presentation/lib/src/widgets/hold_panel.dart` | [ ] |
-| 1.12.5 | screens.dart barrel更新 | `packages/presentation/lib/src/screens/screens.dart` | [ ] |
-| 1.12.6 | widgets.dart barrel更新 | `packages/presentation/lib/src/widgets/widgets.dart` | [ ] |
+| 1.12.1 | GameScreen（メイン画面レイアウト） | `packages/presentation/lib/src/screens/game_screen.dart` | [x] |
+| 1.12.2 | ScorePanel（スコア・レベル表示） | `packages/presentation/lib/src/widgets/score_panel.dart` | [x] |
+| 1.12.3 | NextPanel（NEXT表示） | `packages/presentation/lib/src/widgets/next_panel.dart` | [x] |
+| 1.12.4 | HoldPanel（HOLD表示） | `packages/presentation/lib/src/widgets/hold_panel.dart` | [x] |
+| 1.12.5 | screens.dart barrel更新 | `packages/presentation/lib/src/screens/screens.dart` | [x] |
+| 1.12.6 | widgets.dart barrel更新 | `packages/presentation/lib/src/widgets/widgets.dart` | [x] |
 
 ### 1.13 Presentation層 - Providers
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.13.1 | gameControllerProvider | `packages/presentation/lib/src/providers/game_provider.dart` | [ ] |
-| 1.13.2 | providers.dart barrel更新 | `packages/presentation/lib/src/providers/providers.dart` | [ ] |
+| 1.13.1 | gameControllerProvider | `packages/presentation/lib/src/providers/game_provider.dart` | [x] |
+| 1.13.2 | providers.dart barrel更新 | `packages/presentation/lib/src/providers/providers.dart` | [x] |
 
 ### 1.14 Presentation層 - 入力処理
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.14.1 | KeyboardHandler（キーボード入力） | `packages/presentation/lib/src/flame/input/keyboard_handler.dart` | [ ] |
-| 1.14.2 | MobileControls（モバイル操作ボタン） | `packages/presentation/lib/src/widgets/mobile_controls.dart` | [ ] |
+| 1.14.1 | KeyboardHandler（キーボード入力） | `packages/presentation/lib/src/flame/input/keyboard_handler.dart` | [x] |
+| 1.14.2 | MobileControls（モバイル操作ボタン） | `packages/presentation/lib/src/widgets/mobile_controls.dart` | [x] |
 
 ### 1.15 統合
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 1.15.1 | main.dart更新（GameScreen表示） | `lib/main.dart` | [ ] |
-| 1.15.2 | Phase 1 動作確認（Web） | - | [ ] |
-| 1.15.3 | Phase 1 動作確認（モバイル） | - | [ ] |
+| 1.15.1 | main.dart更新（GameScreen表示） | `lib/main.dart` | [x] |
+| 1.15.2 | Phase 1 動作確認（Web） | - | [x] |
+| 1.15.3 | Phase 1 動作確認（モバイル） | - | [x] |
 
 ---
 
@@ -371,19 +371,20 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 | Phase | タスク数 | 完了 | 進捗率 |
 |-------|----------|------|--------|
-| Phase 1: コアゲーム | 60 | 0 | 0% |
+| Phase 1: コアゲーム | 60 | 60 | 100% |
 | Phase 2: 基本機能 | 14 | 0 | 0% |
 | Phase 3: 拡張機能 | 22 | 0 | 0% |
 | Phase 4: 仕上げ | 17 | 0 | 0% |
-| **合計** | **113** | **0** | **0%** |
+| **合計** | **113** | **60** | **53%** |
 
 ---
 
 ## 次のアクション
 
-1. [ ] Phase 1.1 から開始（TetrominoType enum）
-2. [ ] `packages/domain/` ディレクトリ構造を整備
-3. [ ] 最初のテストファイルを作成
+1. [x] ~~Phase 1 完了（コアゲーム）~~
+2. [ ] Phase 2.1 から開始（HighScore Entity）
+3. [ ] ScoreRepository インターフェース定義
+4. [ ] タイトル画面・ゲームオーバー画面の実装
 
 ---
 
