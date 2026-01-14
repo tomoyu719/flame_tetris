@@ -11,5 +11,6 @@ export 'src/constants/constants.dart';
 export 'src/entities/entities.dart';
 export 'src/enums/enums.dart';
 export 'src/failures/failures.dart';
+export 'src/repositories/repositories.dart';
 export 'src/services/services.dart';
 export 'src/value_objects/value_objects.dart';
