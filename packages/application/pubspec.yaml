@@ -1,0 +1,17 @@
+name: tetris_application
+description: Application layer for Flame Tetris - Use cases and application services
+version: 1.0.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  meta: ^1.11.0
+  tetris_domain:
+    path: ../domain
+
+dev_dependencies:
+  test: ^1.24.0
+  very_good_analysis: ^10.0.0
