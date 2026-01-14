@@ -1,76 +1,119 @@
-import 'package:flame/components.dart';
+import 'dart:math';
+
 import 'package:flame_test/flame_test.dart';
-import 'package:flame_tetris/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tetris_application/tetris_application.dart';
+import 'package:tetris_infrastructure/tetris_infrastructure.dart';
+import 'package:tetris_presentation/tetris_presentation.dart';
 
 void main() {
-  group('SimpleGame', () {
-    // ignore: discarded_futures, testWithGame registers tests synchronously
-    testWithGame<SimpleGame>(
-      'loads player on game start',
-      SimpleGame.new,
+  group('TetrisGame', () {
+    late GameController controller;
+
+    setUp(() {
+      controller = _createTestController();
+    });
+
+    testWithGame<TetrisGame>(
+      'ゲーム開始時にBoardComponentが追加される',
+      () => TetrisGame(controller: controller, cellSize: 30.0),
       (game) async {
         await game.ready();
 
-        expect(game.children.whereType<Player>().length, equals(1));
+        // BoardComponentが存在することを確認
+        final boardComponents =
+            game.children.whereType<BoardComponent>().toList();
+        expect(boardComponents.length, equals(1));
       },
     );
 
-    // ignore: discarded_futures, testWithGame registers tests synchronously
-    testWithGame<SimpleGame>(
-      'player is centered on load',
-      SimpleGame.new,
+    testWithGame<TetrisGame>(
+      'autoStart=trueでゲームが自動開始される',
+      () => TetrisGame(
+        controller: controller,
+        cellSize: 30.0,
+        autoStart: true,
+      ),
       (game) async {
         await game.ready();
 
-        final player = game.children.whereType<Player>().first;
-        expect(player.position, equals(game.size / 2));
+        // ゲームがプレイ中であることを確認
+        expect(game.isPlaying, isTrue);
+      },
+    );
+
+    testWithGame<TetrisGame>(
+      'autoStart=falseではゲームが自動開始されない',
+      () => TetrisGame(
+        controller: controller,
+        cellSize: 30.0,
+        autoStart: false,
+      ),
+      (game) async {
+        await game.ready();
+
+        // ゲームがまだ開始されていないことを確認
+        expect(game.isPlaying, isFalse);
       },
     );
   });
 
-  group('Player', () {
-    test('moves 20 pixels to the right when move is called', () {
-      final player = Player();
-      final initialX = player.position.x;
+  group('GameScreen Widget', () {
+    testWidgets('GameScreenが正常にレンダリングされる', (tester) async {
+      final controller = _createTestController();
+      final game = TetrisGame(
+        controller: controller,
+        cellSize: 30.0,
+        autoStart: true,
+      );
 
-      player.move();
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            home: GameScreen(game: game),
+          ),
+        ),
+      );
 
-      expect(player.position.x, equals(initialX + 20));
+      // GameWidgetが存在することを確認
+      expect(find.byType(GameScreen), findsOneWidget);
     });
-
-    test('has correct initial size', () {
-      final player = Player();
-
-      expect(player.size.x, equals(50));
-      expect(player.size.y, equals(50));
-    });
   });
+}
 
-  group('Golden tests', () {
-    testGolden(
-      'SimpleGame renders correctly',
-      (game, tester) async {
-        // SimpleGame is passed via game parameter, already set up
-      },
-      goldenFile: 'goldens/simple_game.png',
-      size: Vector2(800, 600),
-      game: SimpleGame(),
-    );
+/// テスト用のGameControllerを作成
+GameController _createTestController() {
+  final collisionService = CollisionServiceImpl();
+  final rotationService = RotationServiceImpl(
+    collisionService: collisionService,
+  );
+  final lineClearService = LineClearServiceImpl();
+  final scoringService = ScoringServiceImpl();
+  final generator = TetrominoGenerator(random: _FakeRandom());
 
-    testGolden(
-      'Player renders as blue square',
-      (game, tester) async {
-        game.add(
-          Player()
-            ..position = Vector2(100, 100)
-            ..anchor = Anchor.center,
-        );
-      },
-      goldenFile: 'goldens/player.png',
-      size: Vector2(200, 200),
-      backgroundColor: Colors.white,
-    );
-  });
+  return GameController(
+    generator: generator,
+    collisionService: collisionService,
+    rotationService: rotationService,
+    lineClearService: lineClearService,
+    scoringService: scoringService,
+  );
+}
+
+/// テスト用の固定シード乱数
+class _FakeRandom implements Random {
+  int _counter = 0;
+
+  @override
+  int nextInt(int max) {
+    return (_counter++) % max;
+  }
+
+  @override
+  double nextDouble() => 0.5;
+
+  @override
+  bool nextBool() => true;
 }
