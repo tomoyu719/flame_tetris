@@ -1,3 +1,4 @@
 // Failures barrel file
-// TODO(developer): Export failures when implemented
-// export 'failure.dart';
+export 'failure.dart';
+export 'game_failure.dart';
+

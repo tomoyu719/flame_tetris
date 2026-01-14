@@ -7,6 +7,7 @@
 /// - Enums (TetrominoType, RotationState, etc.)
 library;
 
+export 'src/constants/constants.dart';
 export 'src/entities/entities.dart';
 export 'src/enums/enums.dart';
 export 'src/failures/failures.dart';

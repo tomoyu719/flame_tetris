@@ -1,4 +1,6 @@
 // Value Objects barrel file
-// TODO(developer): Export value objects when implemented
-// export 'level.dart';
-// export 'lines_cleared.dart';
+//
+// ゲームで使用するValue Objectをエクスポート
+
+export 'level.dart';
+export 'lines_cleared.dart';
