@@ -1,6 +1,6 @@
 # Flame Tetris - 実行計画（TODO）
 
-> 最終更新: 2026-01-14 (Phase 2 完了)
+> 最終更新: 2026-01-14 (Phase 3.7 テーマ対応完了)
 
 ## 概要
 
@@ -242,71 +242,71 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.1.1 | 🔴 GameSettings テスト | `packages/domain/test/entities/game_settings_test.dart` | [ ] |
-| 3.1.2 | 🟢 GameSettings 実装 | `packages/domain/lib/src/entities/game_settings.dart` | [ ] |
-| 3.1.3 | 🔴 KeyBindings テスト | `packages/domain/test/entities/key_bindings_test.dart` | [ ] |
-| 3.1.4 | 🟢 KeyBindings 実装 | `packages/domain/lib/src/entities/key_bindings.dart` | [ ] |
-| 3.1.5 | SettingsRepository interface | `packages/domain/lib/src/repositories/settings_repository.dart` | [ ] |
-| 3.1.6 | AudioService interface | `packages/domain/lib/src/services/audio_service.dart` | [ ] |
+| 3.1.1 | 🔴 GameSettings テスト | `packages/domain/test/entities/game_settings_test.dart` | [x] |
+| 3.1.2 | 🟢 GameSettings 実装 | `packages/domain/lib/src/entities/game_settings.dart` | [x] |
+| 3.1.3 | 🔴 KeyBindings テスト | `packages/domain/test/entities/key_bindings_test.dart` | [x] |
+| 3.1.4 | 🟢 KeyBindings 実装 | `packages/domain/lib/src/entities/key_bindings.dart` | [x] |
+| 3.1.5 | SettingsRepository interface | `packages/domain/lib/src/repositories/settings_repository.dart` | [x] |
+| 3.1.6 | AudioService interface | `packages/domain/lib/src/services/audio_service.dart` | [x] |
 
 ### 3.2 Infrastructure層 - Settings & Audio
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.2.1 | 🔴 SettingsRepositoryImpl テスト | `packages/infrastructure/test/repositories/settings_repository_impl_test.dart` | [ ] |
-| 3.2.2 | 🟢 SettingsRepositoryImpl 実装 | `packages/infrastructure/lib/src/repositories/settings_repository_impl.dart` | [ ] |
-| 3.2.3 | 🔴 AudioServiceImpl テスト | `packages/infrastructure/test/services/audio_service_impl_test.dart` | [ ] |
-| 3.2.4 | 🟢 AudioServiceImpl 実装（flame_audio） | `packages/infrastructure/lib/src/services/audio_service_impl.dart` | [ ] |
+| 3.2.1 | 🔴 SettingsRepositoryImpl テスト | `packages/infrastructure/test/repositories/settings_repository_impl_test.dart` | [x] |
+| 3.2.2 | 🟢 SettingsRepositoryImpl 実装 | `packages/infrastructure/lib/src/repositories/settings_repository_impl.dart` | [x] |
+| 3.2.3 | 🔴 AudioServiceImpl テスト | `packages/infrastructure/test/services/audio_service_impl_test.dart` | [x] |
+| 3.2.4 | 🟢 AudioServiceImpl 実装（flame_audio） | `packages/infrastructure/lib/src/services/audio_service_impl.dart` | [x] |
 
 ### 3.3 Application層 - Settings UseCases
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.3.1 | 🔴 GetSettingsUseCase テスト | `packages/application/test/usecases/get_settings_usecase_test.dart` | [ ] |
-| 3.3.2 | 🟢 GetSettingsUseCase 実装 | `packages/application/lib/src/usecases/get_settings_usecase.dart` | [ ] |
-| 3.3.3 | 🔴 SaveSettingsUseCase テスト | `packages/application/test/usecases/save_settings_usecase_test.dart` | [ ] |
-| 3.3.4 | 🟢 SaveSettingsUseCase 実装 | `packages/application/lib/src/usecases/save_settings_usecase.dart` | [ ] |
+| 3.3.1 | 🔴 GetSettingsUseCase テスト | `packages/application/test/usecases/get_settings_usecase_test.dart` | [x] |
+| 3.3.2 | 🟢 GetSettingsUseCase 実装 | `packages/application/lib/src/usecases/get_settings_usecase.dart` | [x] |
+| 3.3.3 | 🔴 SaveSettingsUseCase テスト | `packages/application/test/usecases/save_settings_usecase_test.dart` | [x] |
+| 3.3.4 | 🟢 SaveSettingsUseCase 実装 | `packages/application/lib/src/usecases/save_settings_usecase.dart` | [x] |
 
 ### 3.4 Presentation層 - 設定画面
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.4.1 | SettingsScreen（設定画面本体） | `packages/presentation/lib/src/screens/settings_screen.dart` | [ ] |
-| 3.4.2 | VolumeSlider（音量スライダー） | `packages/presentation/lib/src/widgets/volume_slider.dart` | [ ] |
-| 3.4.3 | KeyBindingEditor（キー設定） | `packages/presentation/lib/src/widgets/key_binding_editor.dart` | [ ] |
-| 3.4.4 | settingsProvider | `packages/presentation/lib/src/providers/settings_provider.dart` | [ ] |
+| 3.4.1 | SettingsScreen（設定画面本体） | `packages/presentation/lib/src/screens/settings_screen.dart` | [x] |
+| 3.4.2 | VolumeSlider（音量スライダー） | `packages/presentation/lib/src/widgets/volume_slider.dart` | [x] |
+| 3.4.3 | ToggleSetting（トグル設定） | `packages/presentation/lib/src/widgets/toggle_setting.dart` | [x] |
+| 3.4.4 | settingsProvider | `packages/presentation/lib/src/providers/settings_provider.dart` | [x] |
 
 ### 3.5 オーディオ
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.5.1 | BGMファイル配置（assets/audio/bgm/） | - | [ ] |
-| 3.5.2 | SEファイル配置（assets/audio/se/） | - | [ ] |
-| 3.5.3 | AudioController | `packages/presentation/lib/src/controllers/audio_controller.dart` | [ ] |
-| 3.5.4 | audioProvider | `packages/presentation/lib/src/providers/audio_provider.dart` | [ ] |
+| 3.5.1 | BGMファイル配置（assets/audio/bgm/） | - | [x] |
+| 3.5.2 | SEファイル配置（assets/audio/se/） | - | [x] |
+| 3.5.3 | AudioController | `packages/presentation/lib/src/controllers/audio_controller.dart` | [x] |
+| 3.5.4 | audioProvider | `packages/presentation/lib/src/providers/audio_provider.dart` | [x] |
 
 ### 3.6 多言語対応（i18n）
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.6.1 | l10n.yaml設定 | `l10n.yaml` | [ ] |
-| 3.6.2 | app_en.arb（英語） | `lib/l10n/app_en.arb` | [ ] |
-| 3.6.3 | app_ja.arb（日本語） | `lib/l10n/app_ja.arb` | [ ] |
-| 3.6.4 | 各画面にローカライズ適用 | - | [ ] |
+| 3.6.1 | l10n.yaml設定 | `l10n.yaml` | [x] |
+| 3.6.2 | app_en.arb（英語） | `lib/l10n/app_en.arb` | [x] |
+| 3.6.3 | app_ja.arb（日本語） | `lib/l10n/app_ja.arb` | [x] |
+| 3.6.4 | 各画面にローカライズ適用 | - | [x] |
 
 ### 3.7 テーマ対応
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.7.1 | AppTheme（ダーク/ライト定義） | `packages/presentation/lib/src/theme/app_theme.dart` | [ ] |
-| 3.7.2 | PixelFont設定（Press Start 2P等） | - | [ ] |
-| 3.7.3 | themeProvider | `packages/presentation/lib/src/providers/theme_provider.dart` | [ ] |
+| 3.7.1 | AppTheme（ダーク/ライト定義） | `packages/presentation/lib/src/theme/app_theme.dart` | [x] |
+| 3.7.2 | PixelFont設定（Press Start 2P等） | - | [x] |
+| 3.7.3 | themeProvider | `packages/presentation/lib/src/providers/theme_provider.dart` | [x] |
 
 ### 3.8 統合
 
 | # | タスク | ファイル | 状態 |
 |---|--------|----------|------|
-| 3.8.1 | Phase 3 動作確認 | - | [ ] |
+| 3.8.1 | Phase 3 動作確認 | - | [x] |
 
 ---
 
@@ -373,9 +373,9 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 |-------|----------|------|--------|
 | Phase 1: コアゲーム | 60 | 60 | 100% |
 | Phase 2: 基本機能 | 14 | 14 | 100% |
-| Phase 3: 拡張機能 | 22 | 0 | 0% |
+| Phase 3: 拡張機能 | 22 | 22 | 100% |
 | Phase 4: 仕上げ | 17 | 0 | 0% |
-| **合計** | **113** | **74** | **65%** |
+| **合計** | **113** | **96** | **85%** |
 
 ---
 
@@ -383,8 +383,11 @@ TDDで開発するため、各タスクは「テスト作成 → 実装」の順
 
 1. [x] ~~Phase 1 完了（コアゲーム）~~
 2. [x] ~~Phase 2 完了（基本機能）~~
-3. [ ] Phase 3.1 から開始（GameSettings Entity）
-4. [ ] 設定画面・オーディオ機能の実装
+3. [x] ~~Phase 3.5 完了（オーディオ機能）~~
+4. [x] ~~Phase 3.1-3.4 完了（設定機能）~~
+5. [x] ~~Phase 3.6 完了（i18n多言語対応）~~
+6. [x] ~~Phase 3.7 完了（テーマ対応）~~
+7. [ ] Phase 4 開始（仕上げ）
 
 ---
 

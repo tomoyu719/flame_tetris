@@ -16,6 +16,9 @@ class AppRoutes {
 
   /// ゲームオーバー画面
   static const String gameOver = '/game-over';
+
+  /// 設定画面
+  static const String settings = '/settings';
 }
 
 /// アプリケーションルーターを作成
@@ -50,6 +53,11 @@ GoRouter createAppRouter({
           );
         },
       ),
+      GoRoute(
+        path: AppRoutes.settings,
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
     ],
   );
 }
@@ -82,5 +90,10 @@ extension AppRouterExtension on BuildContext {
         'isNewHighScore': isNewHighScore,
       },
     );
+  }
+
+  /// 設定画面に遷移
+  void goToSettings() {
+    GoRouter.of(this).go(AppRoutes.settings);
   }
 }

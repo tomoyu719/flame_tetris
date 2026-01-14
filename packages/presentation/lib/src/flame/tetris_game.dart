@@ -19,13 +19,17 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// [controller]: ゲームコントローラー
   /// [cellSize]: セルのサイズ（ピクセル）
   /// [autoStart]: onLoad完了時に自動的にゲームを開始するか
+  /// [audioService]: オーディオサービス（オプション）
   TetrisGame({
     required GameController controller,
     this.cellSize = 30.0,
     this.autoStart = false,
-  }) : _controller = controller;
+    AudioService? audioService,
+  })  : _controller = controller,
+        _audioService = audioService;
 
   final GameController _controller;
+  final AudioService? _audioService;
 
   /// セルのサイズ（ピクセル）
   final double cellSize;
@@ -41,6 +45,12 @@ class TetrisGame extends FlameGame with KeyboardEvents {
 
   /// 現在のティック間隔（ミリ秒）
   int _currentTickInterval = 1000;
+
+  /// 前回のレベル（レベルアップ検知用）
+  int _previousLevel = 1;
+
+  /// 前回の消去ライン数（ライン消去検知用）
+  int _previousLinesCleared = 0;
 
   /// ゲーム状態変更時のコールバック
   void Function(GameState state)? onStateChanged;
@@ -98,6 +108,8 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   void startGame() {
     _controller.startGame();
     _boardComponent?.clear();
+    _previousLevel = 1;
+    _previousLinesCleared = 0;
     _updateState();
     _startTickTimer();
   }
@@ -107,6 +119,8 @@ class TetrisGame extends FlameGame with KeyboardEvents {
     _stopTickTimer();
     _controller.restart();
     _boardComponent?.clear();
+    _previousLevel = 1;
+    _previousLinesCleared = 0;
     _updateState();
     _startTickTimer();
   }
@@ -159,6 +173,13 @@ class TetrisGame extends FlameGame with KeyboardEvents {
     if (!_controller.isPlaying) return;
 
     _controller.tick();
+
+    // ライン消去とレベルアップの効果音を判定
+    final state = _controller.state;
+    if (state != null) {
+      _checkAndPlaySoundEffects(state);
+    }
+
     _updateState();
 
     // レベルに応じてティック間隔を更新
@@ -169,7 +190,30 @@ class TetrisGame extends FlameGame with KeyboardEvents {
 
     // ゲームオーバーチェック
     if (_controller.isGameOver) {
+      _audioService?.playSoundEffect(GameSoundEffect.gameOver);
       _stopTickTimer();
+    }
+  }
+
+  /// ライン消去・レベルアップの効果音をチェックして再生
+  void _checkAndPlaySoundEffects(GameState state) {
+    // ライン消去をチェック
+    final clearedLines = state.linesCleared - _previousLinesCleared;
+    if (clearedLines > 0) {
+      if (clearedLines >= 4) {
+        // テトリス（4ライン以上消去）
+        _audioService?.playSoundEffect(GameSoundEffect.tetris);
+      } else {
+        // 通常のライン消去
+        _audioService?.playSoundEffect(GameSoundEffect.clear);
+      }
+      _previousLinesCleared = state.linesCleared;
+    }
+
+    // レベルアップをチェック
+    if (state.level > _previousLevel) {
+      _audioService?.playSoundEffect(GameSoundEffect.levelUp);
+      _previousLevel = state.level;
     }
   }
 
@@ -234,26 +278,62 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// ゲーム中の入力を処理
   bool _handleGameInput(LogicalKeyboardKey key) {
     return switch (key) {
-      LogicalKeyboardKey.arrowLeft => _controller.move(MoveDirection.left),
-      LogicalKeyboardKey.arrowRight => _controller.move(MoveDirection.right),
-      LogicalKeyboardKey.arrowDown => _controller.softDrop(),
-      LogicalKeyboardKey.arrowUp => _controller.rotate(RotationDirection.clockwise),
-      LogicalKeyboardKey.keyX => _controller.rotate(RotationDirection.clockwise),
-      LogicalKeyboardKey.keyZ => _controller.rotate(RotationDirection.counterClockwise),
+      LogicalKeyboardKey.arrowLeft => _handleMove(MoveDirection.left),
+      LogicalKeyboardKey.arrowRight => _handleMove(MoveDirection.right),
+      LogicalKeyboardKey.arrowDown => _handleSoftDrop(),
+      LogicalKeyboardKey.arrowUp => _handleRotate(RotationDirection.clockwise),
+      LogicalKeyboardKey.keyX => _handleRotate(RotationDirection.clockwise),
+      LogicalKeyboardKey.keyZ => _handleRotate(RotationDirection.counterClockwise),
       LogicalKeyboardKey.space => _handleHardDrop(),
-      LogicalKeyboardKey.keyC => _controller.hold(),
-      LogicalKeyboardKey.shift => _controller.hold(),
+      LogicalKeyboardKey.keyC => _handleHold(),
+      LogicalKeyboardKey.shift => _handleHold(),
       LogicalKeyboardKey.escape => _handlePause(),
       LogicalKeyboardKey.keyP => _handlePause(),
       _ => false,
     };
   }
 
+  /// 移動処理
+  bool _handleMove(MoveDirection direction) {
+    final result = _controller.move(direction);
+    if (result) {
+      _audioService?.playSoundEffect(GameSoundEffect.move);
+    }
+    return result;
+  }
+
+  /// ソフトドロップ処理（内部）
+  bool _handleSoftDrop() {
+    return _controller.softDrop();
+  }
+
+  /// 回転処理
+  bool _handleRotate(RotationDirection direction) {
+    final result = _controller.rotate(direction);
+    if (result) {
+      _audioService?.playSoundEffect(GameSoundEffect.rotate);
+    }
+    return result;
+  }
+
+  /// ホールド処理
+  bool _handleHold() {
+    final result = _controller.hold();
+    if (result) {
+      _audioService?.playSoundEffect(GameSoundEffect.hold);
+    }
+    return result;
+  }
+
   /// ハードドロップ処理
   bool _handleHardDrop() {
     final result = _controller.hardDrop();
-    if (result && _controller.isGameOver) {
-      _stopTickTimer();
+    if (result) {
+      _audioService?.playSoundEffect(GameSoundEffect.drop);
+      if (_controller.isGameOver) {
+        _audioService?.playSoundEffect(GameSoundEffect.gameOver);
+        _stopTickTimer();
+      }
     }
     return result;
   }
@@ -269,6 +349,7 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// 左に移動
   void moveLeft() {
     if (_controller.move(MoveDirection.left)) {
+      _audioService?.playSoundEffect(GameSoundEffect.move);
       _updateState();
     }
   }
@@ -276,6 +357,7 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// 右に移動
   void moveRight() {
     if (_controller.move(MoveDirection.right)) {
+      _audioService?.playSoundEffect(GameSoundEffect.move);
       _updateState();
     }
   }
@@ -290,8 +372,10 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// ハードドロップ
   void hardDrop() {
     if (_controller.hardDrop()) {
+      _audioService?.playSoundEffect(GameSoundEffect.drop);
       _updateState();
       if (_controller.isGameOver) {
+        _audioService?.playSoundEffect(GameSoundEffect.gameOver);
         _stopTickTimer();
       }
     }
@@ -300,6 +384,7 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// 時計回りに回転
   void rotateClockwise() {
     if (_controller.rotate(RotationDirection.clockwise)) {
+      _audioService?.playSoundEffect(GameSoundEffect.rotate);
       _updateState();
     }
   }
@@ -307,6 +392,7 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// 反時計回りに回転
   void rotateCounterClockwise() {
     if (_controller.rotate(RotationDirection.counterClockwise)) {
+      _audioService?.playSoundEffect(GameSoundEffect.rotate);
       _updateState();
     }
   }
@@ -314,6 +400,7 @@ class TetrisGame extends FlameGame with KeyboardEvents {
   /// ホールド
   void hold() {
     if (_controller.hold()) {
+      _audioService?.playSoundEffect(GameSoundEffect.hold);
       _updateState();
     }
   }

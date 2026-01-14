@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../l10n/tetris_l10n.dart';
 import '../router/app_router.dart';
 import '../widgets/high_score_dialog.dart';
 
@@ -13,52 +14,44 @@ class TitleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0F0F1F),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // タイトルロゴ
-              const _TitleLogo(),
+              _TitleLogo(l10n: l10n),
               const SizedBox(height: 60),
 
               // メニューボタン
               _MenuButton(
-                label: 'START',
+                label: l10n.menuStart,
                 onPressed: () => context.goToGame(),
               ),
               const SizedBox(height: 20),
 
               _MenuButton(
-                label: 'HIGH SCORE',
+                label: l10n.menuHighScore,
                 onPressed: () => _showHighScoreDialog(context),
               ),
               const SizedBox(height: 20),
 
               _MenuButton(
-                label: 'SETTINGS',
-                onPressed: () {
-                  // TODO: Phase 3で実装
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Settings coming soon!'),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
-                },
+                label: l10n.menuSettings,
+                onPressed: () => context.goToSettings(),
               ),
 
               const SizedBox(height: 80),
 
               // クレジット
               Text(
-                '© 2026 Flame Tetris',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 12,
-                ),
+                l10n.copyright,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 10,
+                    ),
               ),
             ],
           ),
@@ -77,7 +70,9 @@ class TitleScreen extends ConsumerWidget {
 
 /// タイトルロゴ
 class _TitleLogo extends StatelessWidget {
-  const _TitleLogo();
+  const _TitleLogo({required this.l10n});
+
+  final TetrisL10n l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -95,32 +90,39 @@ class _TitleLogo extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         // タイトルテキスト
-        ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-            colors: [
-              Colors.cyan,
-              Colors.purple,
-              Colors.orange,
-            ],
-          ).createShader(bounds),
-          child: const Text(
-            'TETRIS',
-            style: TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 8,
-            ),
-          ),
+        Builder(
+          builder: (context) {
+            final theme = Theme.of(context);
+            return ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                colors: [
+                  theme.colorScheme.primary,
+                  theme.colorScheme.secondary,
+                  theme.colorScheme.tertiary,
+                ],
+              ).createShader(bounds),
+              child: Text(
+                l10n.titleTetris,
+                style: theme.textTheme.displayLarge?.copyWith(
+                  fontSize: 32,
+                  letterSpacing: 4,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 8),
-        Text(
-          'FLAME EDITION',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[500],
-            letterSpacing: 4,
-          ),
+        Builder(
+          builder: (context) {
+            return Text(
+              l10n.titleSubtitle,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 8,
+                    letterSpacing: 2,
+                  ),
+            );
+          },
         ),
       ],
     );
@@ -128,8 +130,8 @@ class _TitleLogo extends StatelessWidget {
 
   Widget _buildBlock(Color color) {
     return Container(
-      width: 30,
-      height: 30,
+      width: 24,
+      height: 24,
       margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: color,
@@ -137,7 +139,7 @@ class _TitleLogo extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.5),
-            blurRadius: 8,
+            blurRadius: 6,
             spreadRadius: 1,
           ),
         ],
@@ -158,6 +160,7 @@ class _MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: 200,
       height: 50,
@@ -165,17 +168,16 @@ class _MenuButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          side: const BorderSide(color: Colors.cyan, width: 2),
+          foregroundColor: theme.colorScheme.onSurface,
+          side: BorderSide(color: theme.colorScheme.primary, width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
         child: Text(
           label,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+          style: theme.textTheme.labelLarge?.copyWith(
+            fontSize: 12,
             letterSpacing: 2,
           ),
         ),

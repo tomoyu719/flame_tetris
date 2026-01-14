@@ -1,7 +1,9 @@
 // UseCases barrel file
 export 'game_tick_usecase.dart';
 export 'get_high_score_usecase.dart';
+export 'get_settings_usecase.dart';
 export 'hard_drop_usecase.dart';
+export 'save_settings_usecase.dart';
 export 'hold_tetromino_usecase.dart';
 export 'move_tetromino_usecase.dart';
 export 'pause_game_usecase.dart';

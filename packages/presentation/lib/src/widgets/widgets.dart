@@ -6,3 +6,5 @@ export 'next_panel.dart';
 export 'pause_overlay.dart';
 export 'score_panel.dart';
 export 'tetromino_preview.dart';
+export 'toggle_setting.dart';
+export 'volume_slider.dart';

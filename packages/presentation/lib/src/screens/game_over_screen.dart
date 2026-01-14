@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/tetris_l10n.dart';
 import '../router/app_router.dart';
 
 /// ゲームオーバー画面
@@ -30,21 +31,22 @@ class GameOverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0F0F1F),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // ゲームオーバータイトル
-              const Text(
-                'GAME OVER',
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                  letterSpacing: 4,
+              Text(
+                l10n.gameOver,
+                style: theme.textTheme.displayMedium?.copyWith(
+                  fontSize: 24,
+                  color: theme.colorScheme.error,
+                  letterSpacing: 2,
                 ),
               ),
 
@@ -62,21 +64,20 @@ class GameOverScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.amber, width: 2),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.star, color: Colors.amber, size: 24),
-                      SizedBox(width: 8),
+                      const Icon(Icons.star, color: Colors.amber, size: 20),
+                      const SizedBox(width: 8),
                       Text(
-                        'NEW HIGH SCORE!',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        l10n.newHighScore,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          fontSize: 10,
                           color: Colors.amber,
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Icon(Icons.star, color: Colors.amber, size: 24),
+                      const SizedBox(width: 8),
+                      const Icon(Icons.star, color: Colors.amber, size: 20),
                     ],
                   ),
                 ),
@@ -86,26 +87,29 @@ class GameOverScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // スコア詳細
-              _ScoreDetail(label: 'SCORE', value: score.toString()),
+              _ScoreDetail(label: l10n.labelScore, value: score.toString()),
               const SizedBox(height: 12),
-              _ScoreDetail(label: 'LEVEL', value: level.toString()),
+              _ScoreDetail(label: l10n.labelLevel, value: level.toString()),
               const SizedBox(height: 12),
-              _ScoreDetail(label: 'LINES', value: linesCleared.toString()),
+              _ScoreDetail(
+                label: l10n.labelLines,
+                value: linesCleared.toString(),
+              ),
 
               const SizedBox(height: 60),
 
               // ボタン
               _ActionButton(
-                label: 'RETRY',
+                label: l10n.buttonRetry,
                 icon: Icons.replay,
-                color: Colors.cyan,
+                color: theme.colorScheme.primary,
                 onPressed: () => context.goToGame(),
               ),
               const SizedBox(height: 16),
               _ActionButton(
-                label: 'TITLE',
+                label: l10n.buttonTitle,
                 icon: Icons.home,
-                color: Colors.grey,
+                color: theme.colorScheme.outline,
                 onPressed: () => context.goToTitle(),
               ),
             ],
@@ -128,11 +132,12 @@ class _ScoreDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: 250,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -140,19 +145,11 @@ class _ScoreDetail extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[400],
-              fontWeight: FontWeight.w500,
-            ),
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 10),
           ),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 16),
           ),
         ],
       ),
@@ -176,18 +173,18 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: 200,
       height: 50,
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, size: 20),
+        icon: Icon(icon, size: 18),
         label: Text(
           label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
+          style: theme.textTheme.labelLarge?.copyWith(
+            fontSize: 10,
+            letterSpacing: 1,
           ),
         ),
         style: ElevatedButton.styleFrom(

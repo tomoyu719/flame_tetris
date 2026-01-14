@@ -1,0 +1,249 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Flame Tetris",
+  "@appTitle": {
+    "description": "The application title"
+  },
+
+  "titleTetris": "TETRIS",
+  "@titleTetris": {
+    "description": "Main title text"
+  },
+
+  "titleSubtitle": "FLAME EDITION",
+  "@titleSubtitle": {
+    "description": "Subtitle under the main title"
+  },
+
+  "menuStart": "START",
+  "@menuStart": {
+    "description": "Start game button"
+  },
+
+  "menuHighScore": "HIGH SCORE",
+  "@menuHighScore": {
+    "description": "High score button"
+  },
+
+  "menuSettings": "SETTINGS",
+  "@menuSettings": {
+    "description": "Settings button"
+  },
+
+  "copyright": "© 2026 Flame Tetris",
+  "@copyright": {
+    "description": "Copyright notice"
+  },
+
+  "labelScore": "SCORE",
+  "@labelScore": {
+    "description": "Score label"
+  },
+
+  "labelLevel": "LEVEL",
+  "@labelLevel": {
+    "description": "Level label"
+  },
+
+  "labelLines": "LINES",
+  "@labelLines": {
+    "description": "Lines cleared label"
+  },
+
+  "labelNext": "NEXT",
+  "@labelNext": {
+    "description": "Next tetromino label"
+  },
+
+  "labelHold": "HOLD",
+  "@labelHold": {
+    "description": "Hold tetromino label"
+  },
+
+  "gameOver": "GAME OVER",
+  "@gameOver": {
+    "description": "Game over title"
+  },
+
+  "newHighScore": "NEW HIGH SCORE!",
+  "@newHighScore": {
+    "description": "New high score message"
+  },
+
+  "buttonRetry": "RETRY",
+  "@buttonRetry": {
+    "description": "Retry button"
+  },
+
+  "buttonTitle": "TITLE",
+  "@buttonTitle": {
+    "description": "Return to title button"
+  },
+
+  "paused": "PAUSED",
+  "@paused": {
+    "description": "Pause overlay title"
+  },
+
+  "buttonResume": "RESUME",
+  "@buttonResume": {
+    "description": "Resume game button"
+  },
+
+  "buttonQuit": "QUIT",
+  "@buttonQuit": {
+    "description": "Quit game button"
+  },
+
+  "settingsTitle": "SETTINGS",
+  "@settingsTitle": {
+    "description": "Settings screen title"
+  },
+
+  "settingsAudio": "Audio",
+  "@settingsAudio": {
+    "description": "Audio settings section"
+  },
+
+  "settingsBgmVolume": "BGM Volume",
+  "@settingsBgmVolume": {
+    "description": "BGM volume slider label"
+  },
+
+  "settingsSeVolume": "SE Volume",
+  "@settingsSeVolume": {
+    "description": "Sound effect volume slider label"
+  },
+
+  "settingsMuteAll": "Mute All",
+  "@settingsMuteAll": {
+    "description": "Mute all toggle label"
+  },
+
+  "settingsGameplay": "Gameplay",
+  "@settingsGameplay": {
+    "description": "Gameplay settings section"
+  },
+
+  "settingsGhostPiece": "Ghost Piece",
+  "@settingsGhostPiece": {
+    "description": "Ghost piece toggle label"
+  },
+
+  "settingsResetDefaults": "RESET TO DEFAULTS",
+  "@settingsResetDefaults": {
+    "description": "Reset settings button"
+  },
+
+  "settingsVersion": "Version {version}",
+  "@settingsVersion": {
+    "description": "Version info",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    }
+  },
+
+  "dialogResetTitle": "Reset Settings?",
+  "@dialogResetTitle": {
+    "description": "Reset confirmation dialog title"
+  },
+
+  "dialogResetContent": "This will reset all settings to their default values.",
+  "@dialogResetContent": {
+    "description": "Reset confirmation dialog content"
+  },
+
+  "dialogCancel": "CANCEL",
+  "@dialogCancel": {
+    "description": "Cancel button"
+  },
+
+  "dialogReset": "RESET",
+  "@dialogReset": {
+    "description": "Reset button"
+  },
+
+  "snackbarSettingsReset": "Settings reset to defaults",
+  "@snackbarSettingsReset": {
+    "description": "Settings reset confirmation message"
+  },
+
+  "errorLoadSettings": "Failed to load settings",
+  "@errorLoadSettings": {
+    "description": "Settings load error message"
+  },
+
+  "highScoreDialogTitle": "HIGH SCORE",
+  "@highScoreDialogTitle": {
+    "description": "High score dialog title"
+  },
+
+  "highScoreNoRecord": "No high score yet",
+  "@highScoreNoRecord": {
+    "description": "No high score message"
+  },
+
+  "highScoreDate": "Date",
+  "@highScoreDate": {
+    "description": "High score date label"
+  },
+
+  "buttonClose": "CLOSE",
+  "@buttonClose": {
+    "description": "Close button"
+  },
+
+  "settingsAppearance": "Appearance",
+  "@settingsAppearance": {
+    "description": "Appearance settings section"
+  },
+
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Theme selector label"
+  },
+
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Dark theme option"
+  },
+
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Light theme option"
+  },
+
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "System theme option"
+  },
+
+  "pauseHint": "Press ESC or P to resume",
+  "@pauseHint": {
+    "description": "Hint text shown on pause overlay"
+  },
+
+  "highScorePlayPrompt": "Play a game to set your first record.",
+  "@highScorePlayPrompt": {
+    "description": "Prompt shown when no high score exists"
+  },
+
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Language setting label"
+  },
+
+  "settingsLanguageEnglish": "English",
+  "@settingsLanguageEnglish": {
+    "description": "English language option"
+  },
+
+  "settingsLanguageJapanese": "Japanese",
+  "@settingsLanguageJapanese": {
+    "description": "Japanese language option"
+  }
+}
